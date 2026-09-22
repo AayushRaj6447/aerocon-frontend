@@ -25,11 +25,31 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
   const [lookingUp, setLookingUp] = useState(false);
   const [lookupError, setLookupError] = useState(null);
 
+  // Date selection state ('26' or '27' September)
+  const [selectedDate, setSelectedDate] = useState('26');
+
   // Slots State
   const [slots, setSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [slotsError, setSlotsError] = useState(null);
   const [selectedSlotId, setSelectedSlotId] = useState('');
+
+  // Filter slots for the selected date ('26' or '27')
+  const filteredSlots = slots.filter((slot) => {
+    if (!slot.date) return true;
+    const clean = String(slot.date).replace(/[^0-9]/g, '');
+    return clean === selectedDate || clean === '';
+  });
+
+  // Whenever selectedDate or slots change, auto-select first available slot for that date
+  useEffect(() => {
+    const available = filteredSlots.find((s) => !s.isFull && (s.remainingSeats === null || s.remainingSeats > 0));
+    if (available) {
+      setSelectedSlotId(available._id);
+    } else {
+      setSelectedSlotId('');
+    }
+  }, [selectedDate, slots]);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -79,6 +99,7 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
           email: matched.email,
           roll: matched.roll,
           batch: matched.batch,
+          date: matched.slot?.date ? `${matched.slot.date} Sep` : '26/27 Sep',
           slotNumber: matched.slot?.slotNumber || 1,
           slotId: matched.slot?._id || matched.slot?.id || '—',
           displayTime: matched.slot?.displayTime || 'Assigned Slot',
@@ -103,10 +124,6 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
       const cached = getCachedSlots();
       if (cached && cached.length > 0) {
         setSlots(cached);
-        if (!selectedSlotId) {
-          const firstAvailable = cached.find((s) => !s.isFull && s.remainingSeats > 0);
-          if (firstAvailable) setSelectedSlotId(firstAvailable._id);
-        }
         return;
       }
     }
@@ -116,12 +133,6 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
     try {
       const slotList = await prefetchSlots(force);
       setSlots(slotList || []);
-
-      // Auto-select first available slot if none selected or current is full
-      const firstAvailable = (slotList || []).find((s) => !s.isFull && s.remainingSeats > 0);
-      if (firstAvailable) {
-        setSelectedSlotId(firstAvailable._id);
-      }
     } catch (err) {
       console.error('Failed to fetch slots:', err);
       setSlotsError('Could not connect to the reservation server. The server on Render may still be waking up. Please click Refresh in a few seconds.');
@@ -168,7 +179,8 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
       if (res.ok && result.success) {
         // Success
         const passCode = result.data.passCode;
-        const slotInfo = result.data.slot?.displayTime || '07:00 PM - 08:00 PM';
+        const slotInfo = result.data.slot?.displayTime || '06:30 PM - 08:00 PM';
+        const chosenSlot = filteredSlots.find((s) => s._id === selectedSlotId);
 
         setPassData({
           code: passCode,
@@ -176,6 +188,9 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
           email: formData.email.trim(),
           roll: formData.roll.trim().toUpperCase(),
           batch: formData.batch,
+          date: chosenSlot?.date ? `${chosenSlot.date} Sep` : `${selectedDate} Sep`,
+          slotNumber: chosenSlot?.slotNumber || 1,
+          slotId: selectedSlotId,
           displayTime: slotInfo,
           venue: 'Lawn Circle',
         });
@@ -337,12 +352,50 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
               </div>
             </div>
 
+            {/* DATE SELECTOR (26 Sep or 27 Sep) */}
+            <div>
+              <label className="text-xs font-mono uppercase text-zinc-400 flex items-center gap-1.5 mb-1.5">
+                <Calendar className="w-3.5 h-3.5 text-white" />
+                <span>1. Select Observation Date *</span>
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setSelectedDate('26')}
+                  className={`py-2 px-3 text-xs font-mono border transition-all text-center flex flex-col items-center justify-center ${
+                    selectedDate === '26'
+                      ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
+                      : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+                  }`}
+                >
+                  <span className="text-xs tracking-wide">26 Sep 2026</span>
+                  <span className={`text-[10px] ${selectedDate === '26' ? 'text-zinc-700 font-normal' : 'text-zinc-500'}`}>
+                    Day 1 (Friday)
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedDate('27')}
+                  className={`py-2 px-3 text-xs font-mono border transition-all text-center flex flex-col items-center justify-center ${
+                    selectedDate === '27'
+                      ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
+                      : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+                  }`}
+                >
+                  <span className="text-xs tracking-wide">27 Sep 2026</span>
+                  <span className={`text-[10px] ${selectedDate === '27' ? 'text-zinc-700 font-normal' : 'text-zinc-500'}`}>
+                    Day 2 (Saturday)
+                  </span>
+                </button>
+              </div>
+            </div>
+
             {/* SLOTS DROPDOWN */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-xs font-mono uppercase text-zinc-400 flex items-center gap-1.5">
                   <Clock className="w-3.5 h-3.5 text-white" />
-                  <span>Select Observation Slot *</span>
+                  <span>2. Select Slot ({selectedDate} Sep • 6:30 PM - 8:00 PM) *</span>
                 </label>
                 <button
                   type="button"
@@ -375,9 +428,12 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
                     </button>
                   </div>
                 </div>
-              ) : slots.length === 0 ? (
-                <div className="p-3 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-500 text-center">
-                  No slots currently available. Please click Refresh or check back soon.
+              ) : filteredSlots.length === 0 ? (
+                <div className="p-3 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-400 text-center space-y-1">
+                  <p className="text-zinc-300 font-semibold">No slots listed yet for {selectedDate} September.</p>
+                  <p className="text-[11px] text-zinc-500">
+                    Slots for this date will open shortly. Please select {selectedDate === '26' ? '27 Sep' : '26 Sep'} or click Refresh.
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-1.5">
@@ -388,10 +444,10 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
                       className="w-full p-2.5 bg-zinc-950 border border-white/15 text-xs sm:text-sm text-white font-mono focus:outline-none focus:border-white transition-colors cursor-pointer appearance-none pr-8"
                     >
                       <option value="" disabled>
-                        -- Choose an Observation Slot --
+                        -- Choose an Observation Slot ({selectedDate} Sep) --
                       </option>
-                      {slots.map((slot) => {
-                        const isFull = slot.isFull || slot.remainingSeats <= 0;
+                      {filteredSlots.map((slot) => {
+                        const isFull = slot.isFull || (slot.remainingSeats !== null && slot.remainingSeats <= 0);
                         return (
                           <option
                             key={slot._id}
@@ -399,7 +455,7 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
                             disabled={isFull}
                             className="bg-zinc-900 text-white font-mono"
                           >
-                            Slot #{slot.slotNumber}: {slot.displayTime} {isFull ? '(FULL)' : `(${slot.remainingSeats} seats left)`}
+                            Slot #{slot.slotNumber}: {slot.displayTime} {isFull ? '(FULL)' : `(${slot.remainingSeats ?? 7} seats left)`}
                           </option>
                         );
                       })}
@@ -413,15 +469,16 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
 
                   {/* Selected Slot Quick Badge */}
                   {selectedSlotId && (() => {
-                    const sel = slots.find((s) => s._id === selectedSlotId);
+                    const sel = filteredSlots.find((s) => s._id === selectedSlotId);
                     if (!sel) return null;
+                    const seats = sel.remainingSeats ?? 7;
                     return (
                       <div className="flex items-center justify-between px-2.5 py-1.5 bg-zinc-950/60 border border-white/10 text-[11px] font-mono text-zinc-400">
                         <span className="text-zinc-300">
-                          Slot #{sel.slotNumber}: <strong className="text-white">{sel.displayTime}</strong>
+                          {selectedDate} Sep • Slot #{sel.slotNumber}: <strong className="text-white">{sel.displayTime}</strong>
                         </span>
-                        <span className={sel.remainingSeats <= 2 ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold'}>
-                          {sel.remainingSeats} seats left
+                        <span className={seats <= 2 ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold'}>
+                          {seats} / {sel.maxCapacity || 7} seats left
                         </span>
                       </div>
                     );
@@ -676,14 +733,16 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
                   <span className="text-white font-bold block">{passData?.roll} ({passData?.batch})</span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 uppercase block text-[9px]">Slot & Time</span>
+                  <span className="text-zinc-500 uppercase block text-[9px]">Date & Slot</span>
                   <span className="text-white font-bold block">
-                    {passData?.slotNumber ? `Slot #${passData.slotNumber} • ` : ''}{passData?.displayTime}
+                    {passData?.date || `${selectedDate} Sep`} • Slot #{passData?.slotNumber || 1}
                   </span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 uppercase block text-[9px]">Passcode / Slot ID</span>
-                  <span className="text-emerald-400 font-bold block">{passData?.code}</span>
+                  <span className="text-zinc-500 uppercase block text-[9px]">Time & Slot ID</span>
+                  <span className="text-white font-bold block truncate" title={passData?.displayTime}>
+                    {passData?.displayTime} <span className="text-emerald-400 font-mono">({passData?.code})</span>
+                  </span>
                 </div>
               </div>
             </div>
