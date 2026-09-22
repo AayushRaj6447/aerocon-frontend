@@ -10,9 +10,9 @@ export default function Hero({ isReady = false, onHeroComplete }) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Countdown timer to 26 September 2026
+  // Countdown timer to 25 September 2026, 05:30 PM (Inaugural Drone Show)
   const calculateTimeLeft = () => {
-    const eventDate = new Date('2026-09-26T10:00:00');
+    const eventDate = new Date('2026-09-25T17:30:00');
     const now = new Date();
     const difference = eventDate - now;
 
