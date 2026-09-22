@@ -3,6 +3,7 @@ import { Calendar, Clock, MapPin, ArrowRight, Search } from 'lucide-react';
 import MainHero from './mainhero';
 import StargazingModal from './StargazingModal';
 import FlipCard from './FlipCard';
+import { RocketSketch, DroneSketch, JetSketch } from './FloatingSketches';
 import { stargazingData } from '../data/eventsData';
 
 export default function Hero({ isReady = false, onHeroComplete }) {
@@ -86,6 +87,31 @@ export default function Hero({ isReady = false, onHeroComplete }) {
             {/* Full-screen Particle Canvas for AEROCON */}
             <div className="absolute inset-0 w-full h-full pointer-events-auto">
               <MainHero onComplete={onHeroComplete} />
+            </div>
+
+            {/* Ambient Hero Floating Sketches (Above and Below the main text) */}
+            {/* Above Main Hero Text */}
+            <div className="absolute top-[16%] left-[12%] sm:left-[18%] opacity-[0.24] text-white pointer-events-none -rotate-[28deg]">
+              <div style={{ animation: 'floatSway 11s ease-in-out infinite', animationDelay: '-2s' }}>
+                <JetSketch className="w-9 h-9 sm:w-11 sm:h-11" />
+              </div>
+            </div>
+            <div className="absolute top-[15%] right-[12%] sm:right-[18%] opacity-[0.24] text-white pointer-events-none rotate-[14deg]">
+              <div style={{ animation: 'floatDriftZone 14s ease-in-out infinite', animationDelay: '-5s' }}>
+                <DroneSketch className="w-9 h-9 sm:w-11 sm:h-11" />
+              </div>
+            </div>
+
+            {/* Below Main Hero Text (Above Countdown) */}
+            <div className="absolute bottom-[23%] left-[14%] sm:left-[22%] opacity-[0.24] text-white pointer-events-none rotate-[20deg]">
+              <div style={{ animation: 'floatDeep 10s ease-in-out infinite', animationDelay: '-7s' }}>
+                <RocketSketch className="w-8 h-8 sm:w-10 sm:h-10" />
+              </div>
+            </div>
+            <div className="absolute bottom-[24%] right-[14%] sm:right-[22%] opacity-[0.24] text-white pointer-events-none rotate-[10deg]">
+              <div style={{ animation: 'floatSway 13s ease-in-out infinite', animationDelay: '-3s' }}>
+                <JetSketch className="w-8 h-8 sm:w-10 sm:h-10" />
+              </div>
             </div>
 
             {/* Spacers */}
