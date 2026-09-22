@@ -93,44 +93,44 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
             {/* Countdown Timer */}
             <div
-              className={`relative z-10 flex items-center justify-center gap-6 sm:gap-12 md:gap-16 font-mono text-center px-4 transition-all duration-1000 ${
+              className={`relative z-10 flex items-center justify-center gap-3 sm:gap-8 md:gap-14 font-mono text-center px-4 transition-all duration-1000 ${
                 isReady
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-6 pointer-events-none'
               }`}
             >
               <div>
-                <span className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
                   {timeLeft.days}
                 </span>
-                <span className="block text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
+                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
                   Days
                 </span>
               </div>
-              <span className="text-2xl sm:text-4xl text-zinc-700 font-light -mt-4 select-none">:</span>
+              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
               <div>
-                <span className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
                   {timeLeft.hours}
                 </span>
-                <span className="block text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
+                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
                   Hours
                 </span>
               </div>
-              <span className="text-2xl sm:text-4xl text-zinc-700 font-light -mt-4 select-none">:</span>
+              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
               <div>
-                <span className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
                   {timeLeft.minutes}
                 </span>
-                <span className="block text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
+                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
                   Minutes
                 </span>
               </div>
-              <span className="text-2xl sm:text-4xl text-zinc-700 font-light -mt-4 select-none">:</span>
+              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
               <div>
-                <span className="text-3xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
                   {timeLeft.seconds}
                 </span>
-                <span className="block text-[10px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
+                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
                   Seconds
                 </span>
               </div>
@@ -139,14 +139,14 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
           {/* ==================== SLIDE 2: STARGAZING ==================== */}
           <div
-            className="absolute inset-0 w-full h-full flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 will-change-transform"
+            className="absolute inset-0 w-full h-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 overflow-y-auto will-change-transform"
             style={{
               transform: `translateX(${(1 - scrollProgress) * 105}vw)`,
               opacity: Math.min(1, Math.max(0, (scrollProgress - 0.2) * 1.8)),
               pointerEvents: scrollProgress < 0.4 ? 'none' : 'auto'
             }}
           >
-            <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16">
+            <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 py-6 sm:py-0">
 
               {/* LEFT SIDE: Name written separately on the left side, static in bold sans-serif */}
               <div className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text">
@@ -159,7 +159,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                   </span>
                 </div>
 
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.9] mb-2 sm:mb-3">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.9] mb-2 sm:mb-3">
                   {stargazingData.title}
                 </h2>
 
@@ -190,7 +190,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                     flipOnClick={false}
                     draggable={false}
                     front={
-                      <div className="w-full h-full p-5 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
+                      <div className="w-full h-full p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
 
                         {/* Card Header */}
                         <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
@@ -204,32 +204,32 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
                         {/* Metadata Grid (Venue, Date, Time) */}
                         <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3">
-                          <div className="p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <MapPin className="w-3 h-3 text-white" />
                               <span>Venue</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {stargazingData.venue}
                             </div>
                           </div>
 
-                          <div className="p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <Calendar className="w-3 h-3 text-white" />
                               <span>Date</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {stargazingData.date}
                             </div>
                           </div>
 
-                          <div className="p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <Clock className="w-3 h-3 text-white" />
                               <span>Time</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {stargazingData.time}
                             </div>
                           </div>

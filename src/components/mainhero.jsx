@@ -21,7 +21,7 @@ export default function MainHero({ onComplete }) {
         repelRadius={150}
         idleDrift={0.6}
         trigger="mount"
-        fontSize="clamp(5rem, 18vw, 14rem)"
+        fontSize="clamp(3.2rem, 15vw, 14rem)"
         fontWeight={900}
         fontFamily="inherit"
         glow={false}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Calendar, Clock, MapPin, Phone, Eye, X, ArrowRight } from 'lucide-react';
+import { ExternalLink, Calendar, Clock, MapPin, Phone, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { eventsData } from '../data/eventsData';
 import FlipCard from './FlipCard';
@@ -49,16 +49,13 @@ function ScrollRevealCard({ children, index }) {
 
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState(null);
-  const [viewTicketImg, setViewTicketImg] = useState(null);
   const [isStargazingModalOpen, setIsStargazingModalOpen] = useState(false);
 
   // Close modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
-        if (viewTicketImg) {
-          setViewTicketImg(null);
-        } else if (isStargazingModalOpen) {
+        if (isStargazingModalOpen) {
           setIsStargazingModalOpen(false);
         } else if (activeEvent) {
           setActiveEvent(null);
@@ -67,7 +64,7 @@ export default function Events() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeEvent, viewTicketImg, isStargazingModalOpen]);
+  }, [activeEvent, isStargazingModalOpen]);
 
   return (
     <section id="events" className="py-24 bg-[#09090b] border-b border-white/10 relative">
@@ -165,7 +162,7 @@ export default function Events() {
 
                       {/* Bottom Callout */}
                       <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400 group-hover:text-white transition-colors">
-                        <span>AEROCON PASS</span>
+                        <span>BRIEFING</span>
                         <div className="flex items-center gap-1 font-semibold">
                           <span>View Event Briefing</span>
                           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
@@ -180,7 +177,7 @@ export default function Events() {
         </div>
       </div>
 
-      {/* ==================== DEDICATED EVENT PAGE VIEW (JUST LIKE SKYBREACH) ==================== */}
+      {/* ==================== DEDICATED EVENT PAGE VIEW ==================== */}
       <AnimatePresence>
         {activeEvent && (
           <motion.div
@@ -189,7 +186,7 @@ export default function Events() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 md:p-8 lg:p-12 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start sm:justify-center p-3 sm:p-6 md:p-8 lg:p-12 overflow-y-auto"
             onClick={(e) => {
               if (e.target === e.currentTarget) setActiveEvent(null);
             }}
@@ -200,13 +197,13 @@ export default function Events() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 relative my-auto p-2 sm:p-4"
+              className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 relative my-auto py-8 sm:py-4 px-1 sm:px-4"
             >
               {/* Close Button */}
               <button
                 type="button"
                 onClick={() => setActiveEvent(null)}
-                className="absolute -top-3 sm:-top-6 right-0 p-2 bg-white text-black hover:bg-zinc-200 transition-colors z-30 flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-lg"
+                className="fixed top-3 right-3 sm:absolute sm:-top-7 sm:right-0 p-2 bg-white text-black hover:bg-zinc-200 transition-colors z-50 flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-lg"
                 aria-label="Close event briefing"
               >
                 <span>Close</span>
@@ -218,7 +215,7 @@ export default function Events() {
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text pt-6 sm:pt-4 lg:pt-0"
+                className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text pt-4 sm:pt-4 lg:pt-0"
               >
                 <div className="flex items-center gap-2 mb-2 sm:mb-3">
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 bg-white text-black font-bold">
@@ -230,7 +227,7 @@ export default function Events() {
                 </div>
 
                 {/* Event Name written separately, static */}
-                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.9] mb-2 sm:mb-3">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.9] mb-2 sm:mb-3">
                   {activeEvent.title}
                 </h2>
 
@@ -272,7 +269,7 @@ export default function Events() {
                     flipOnClick={false}
                     draggable={false}
                     front={
-                      <div className="w-full h-full p-5 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
+                      <div className="w-full h-full p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
 
                         {/* Card Header */}
                         <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
@@ -286,32 +283,32 @@ export default function Events() {
 
                         {/* Metadata Grid (Venue, Date, Time) - Clean Font Only */}
                         <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3">
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <MapPin className="w-3 h-3 text-white" />
                               <span>Venue</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {activeEvent.venue}
                             </div>
                           </div>
 
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <Calendar className="w-3 h-3 text-white" />
                               <span>Date</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {activeEvent.date}
                             </div>
                           </div>
 
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <Clock className="w-3 h-3 text-white" />
                               <span>Time</span>
                             </div>
-                            <div className="text-xs sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
                               {activeEvent.time}
                             </div>
                           </div>
@@ -332,7 +329,7 @@ export default function Events() {
 
                         {/* Student Coordinators */}
                         {activeEvent.contacts && activeEvent.contacts.length > 0 && (
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 font-mono text-xs mb-3 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 font-mono text-xs mb-3 rounded-sm">
                             <div className="text-[10px] text-zinc-500 uppercase mb-1">
                               Student Coordinators
                             </div>
@@ -357,35 +354,21 @@ export default function Events() {
                             <button
                               type="button"
                               onClick={() => setIsStargazingModalOpen(true)}
-                              className="flex-1 py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                              className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
                             >
                               <span>Book Your Slot</span>
                               <ArrowRight className="w-4 h-4" />
                             </button>
                           ) : (
-                            <>
-                              <a
-                                href={activeEvent.formUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex-1 py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
-                              >
-                                <span>Register on Form</span>
-                                <ExternalLink className="w-3.5 h-3.5" />
-                              </a>
-
-                              {activeEvent.ticketImage && (
-                                <button
-                                  type="button"
-                                  onClick={() => setViewTicketImg(activeEvent.ticketImage)}
-                                  title="View Official Boarding Pass"
-                                  className="py-2.5 px-4 bg-zinc-950 hover:bg-zinc-900 text-white border border-white/20 text-xs font-mono transition-colors flex items-center justify-center gap-1.5"
-                                >
-                                  <Eye className="w-4 h-4" />
-                                  <span className="hidden sm:inline">Pass</span>
-                                </button>
-                              )}
-                            </>
+                            <a
+                              href={activeEvent.formUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                            >
+                              <span>Register on Form</span>
+                              <ExternalLink className="w-3.5 h-3.5" />
+                            </a>
                           )}
                         </div>
 
@@ -405,28 +388,6 @@ export default function Events() {
         isOpen={isStargazingModalOpen}
         onClose={() => setIsStargazingModalOpen(false)}
       />
-
-      {/* Ticket Image Preview Modal */}
-      {viewTicketImg && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-200">
-          <div className="bg-zinc-900 border-2 border-white/20 max-w-lg w-full p-2 relative shadow-2xl">
-            <button
-              onClick={() => setViewTicketImg(null)}
-              className="absolute top-4 right-4 p-2 bg-white text-black hover:bg-zinc-200 transition-colors z-10"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            <div className="overflow-hidden max-h-[85vh] flex items-center justify-center">
-              <img
-                src={viewTicketImg}
-                alt="AEROCON Event Boarding Pass"
-                className="w-full h-auto object-contain max-h-[80vh]"
-              />
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

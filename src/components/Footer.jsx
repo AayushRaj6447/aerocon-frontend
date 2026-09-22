@@ -25,7 +25,7 @@ export default function Footer() {
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-zinc-400">
             <a href="#about" className="hover:text-white transition-colors">About</a>
-            <a href="#events" className="hover:text-white transition-colors">Events & Passes</a>
+            <a href="#events" className="hover:text-white transition-colors">Events</a>
             <a href="#schedule" className="hover:text-white transition-colors">Schedule</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
           </div>

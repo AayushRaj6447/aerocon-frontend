@@ -82,7 +82,10 @@ export default function Navbar({ visible = false }) {
             <a
               key={link.name}
               href={link.href}
-              onClick={() => setIsOpen(false)}
+              onClick={(e) => {
+                handleLinkClick(e, link.href);
+                setIsOpen(false);
+              }}
               className="block py-1.5 text-zinc-400 hover:text-white"
             >
               {link.name}
@@ -90,7 +93,10 @@ export default function Navbar({ visible = false }) {
           ))}
           <a
             href="#events"
-            onClick={() => setIsOpen(false)}
+            onClick={(e) => {
+              handleLinkClick(e, '#events');
+              setIsOpen(false);
+            }}
             className="block py-1.5 font-bold text-white"
           >
             Register
