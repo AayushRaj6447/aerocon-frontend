@@ -346,7 +346,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Aayush Sharma"
+                  placeholder="e.g. Aayush Raj"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white focus:outline-none focus:border-white transition-colors"
@@ -361,7 +361,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                 <input
                   type="email"
                   required
-                  placeholder="student@college.edu"
+                  placeholder="btech10xxx.2x@bitmesra.ac.in"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white focus:outline-none focus:border-white transition-colors"
@@ -377,7 +377,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. 25BCS101"
+                    placeholder="e.g. BTECH/10XXX/2X"
                     value={formData.roll}
                     onChange={(e) => setFormData({ ...formData, roll: e.target.value })}
                     className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white uppercase focus:outline-none focus:border-white transition-colors font-mono"

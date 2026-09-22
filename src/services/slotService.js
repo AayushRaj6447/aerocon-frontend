@@ -42,3 +42,4 @@ export const getCachedSlots = () => cachedSlots;
 export const setCachedSlots = (slots) => {
   cachedSlots = slots;
 };
+

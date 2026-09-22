@@ -15,7 +15,8 @@ export const droneShowData = {
   shortDesc: 'A breathtaking synchronized aerial drone show. Watch autonomous multi-rotor perform high-precision aerodynamic maneuvers, and illuminating light over the evening sky.',
   perk: 'Live Aerial Swarm Choreography • Open to All Students & Visitors',
   contacts: [
-    { name: 'AeroSoc Flight Team', phone: 'Official Helpdesk' }
+    { name: 'Aayush', phone: '91100 57864' },
+    {name: 'Abhishek', phone: '62021 74621'}
   ]
 };
 
@@ -31,8 +32,8 @@ export const stargazingData = {
   shortDesc: 'Peer deep into the cosmos through astronomical telescopes. Observe lunar craters, Saturn’s planetary rings, Jupiter’s Galilean moons, and distant star clusters under guided constellation tours.',
   perk: 'Astronomical Telescopes & Astro-Photography Mounts Provided',
   contacts: [
-    { name: 'Aayush', phone: '91100 57864' },
-    {name: 'Abhishek', phone: '62021 74621'}
+    { name: 'A. Krishnan', phone: '62039 74739  ' },
+    {name: 'Shourya', phone: '83201 55541'}
   ]
 };
 
