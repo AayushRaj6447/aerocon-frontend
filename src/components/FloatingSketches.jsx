@@ -124,58 +124,58 @@ export default function FloatingSketches() {
   const vehicles = [
     {
       type: 'jet',
-      size: 'w-9 h-9 sm:w-11 sm:h-11',
+      size: 'w-11 h-11 sm:w-13 sm:h-13',
       style: {
-        animation: 'flyAcrossDiagonal1 24s linear infinite',
+        animation: 'flyAcrossDiagonal1 36s linear infinite',
+        animationDelay: '-12s',
+      },
+    },
+    {
+      type: 'rocket',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
+      style: {
+        animation: 'flyRocketAscent1 42s linear infinite',
+        animationDelay: '-21s',
+      },
+    },
+    {
+      type: 'drone',
+      size: 'w-11 h-11 sm:w-13 sm:h-13',
+      style: {
+        animation: 'patrolDroneRight 46s ease-in-out infinite',
+        animationDelay: '-16s',
+      },
+    },
+    {
+      type: 'jet',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
+      style: {
+        animation: 'flyAcrossDiagonal2 38s linear infinite',
+        animationDelay: '-24s',
+      },
+    },
+    {
+      type: 'rocket',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
+      style: {
+        animation: 'flyRocketAscent2 44s linear infinite',
         animationDelay: '-8s',
       },
     },
     {
-      type: 'rocket',
-      size: 'w-8 h-8 sm:w-10 sm:h-10',
-      style: {
-        animation: 'flyRocketAscent1 28s linear infinite',
-        animationDelay: '-14s',
-      },
-    },
-    {
       type: 'drone',
-      size: 'w-9 h-9 sm:w-11 sm:h-11',
+      size: 'w-11 h-11 sm:w-13 sm:h-13',
       style: {
-        animation: 'patrolDroneRight 30s ease-in-out infinite',
-        animationDelay: '-10s',
+        animation: 'patrolDroneLeft 50s ease-in-out infinite',
+        animationDelay: '-30s',
       },
     },
     {
       type: 'jet',
-      size: 'w-8 h-8 sm:w-10 sm:h-10',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
       style: {
-        animation: 'flyAcrossDiagonal2 26s linear infinite',
-        animationDelay: '-18s',
-      },
-    },
-    {
-      type: 'rocket',
-      size: 'w-8 h-8 sm:w-10 sm:h-10',
-      style: {
-        animation: 'flyRocketAscent2 32s linear infinite',
-        animationDelay: '-5s',
-      },
-    },
-    {
-      type: 'drone',
-      size: 'w-9 h-9 sm:w-11 sm:h-11',
-      style: {
-        animation: 'patrolDroneLeft 34s ease-in-out infinite',
-        animationDelay: '-22s',
-      },
-    },
-    {
-      type: 'jet',
-      size: 'w-8 h-8 sm:w-10 sm:h-10',
-      style: {
-        animation: 'flyJetHorizontal 22s linear infinite',
-        animationDelay: '-12s',
+        animation: 'flyJetHorizontal 34s linear infinite',
+        animationDelay: '-17s',
       },
     },
   ];
