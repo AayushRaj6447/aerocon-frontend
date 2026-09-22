@@ -182,7 +182,7 @@ export default function FloatingSketches() {
 
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-20 overflow-hidden select-none"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
       aria-hidden="true"
     >
       {vehicles.map((v, i) => {

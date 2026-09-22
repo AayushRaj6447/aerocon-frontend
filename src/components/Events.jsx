@@ -68,7 +68,7 @@ export default function Events() {
   }, [activeEvent, isStargazingModalOpen]);
 
   return (
-    <section id="events" className="py-24 bg-[#09090b] border-b border-white/10 relative">
+    <section id="events" className="py-24 bg-transparent border-b border-white/10 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -86,7 +86,7 @@ export default function Events() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {eventsData.map((evt, idx) => (
             <ScrollRevealCard key={evt.id} index={idx}>
-              <div className="w-full h-[450px]">
+              <div className="w-full h-[450px] relative z-20">
                 <FlipCard
                   className="w-full h-full"
                   width="100%"
@@ -98,7 +98,7 @@ export default function Events() {
                   glareOpacity={0.25}
                   hoverScale={1.03}
                   perspective={1100}
-                  background="#0d0d10"
+                  background="#0e0e12"
                   color="#f5f5f5"
                   shadow={true}
                   shadowColor="#000000"
@@ -107,7 +107,7 @@ export default function Events() {
                   draggable={false}
                   onClick={() => setActiveEvent(evt)}
                   front={
-                    <div className="w-full h-full bg-zinc-900/70 flex flex-col justify-between p-6 sm:p-7 relative overflow-hidden backdrop-blur-sm cursor-pointer group select-none rounded-[inherit]">
+                    <div className="w-full h-full bg-[#0e0e12] border border-white/15 flex flex-col justify-between p-6 sm:p-7 relative overflow-hidden cursor-pointer group select-none rounded-[inherit] shadow-2xl">
                       {/* Top Section */}
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-3">
@@ -130,7 +130,7 @@ export default function Events() {
                         </div>
 
                         {evt.perk && (
-                          <div className="p-2 bg-zinc-800/60 border border-white/10 text-[11px] font-mono text-zinc-300 flex items-center gap-1.5 mb-3">
+                          <div className="p-2 bg-zinc-800 border border-white/10 text-[11px] font-mono text-zinc-300 flex items-center gap-1.5 mb-3">
                             <span className="text-white font-bold">&bull;</span>
                             <span>{evt.perk}</span>
                           </div>
@@ -138,7 +138,7 @@ export default function Events() {
                       </div>
 
                       {/* Metadata: Date, Time, Venue */}
-                      <div className="py-3 px-4 bg-zinc-950/80 border border-white/10 font-mono text-xs text-zinc-400 space-y-2 my-auto">
+                      <div className="py-3 px-4 bg-zinc-950 border border-white/10 font-mono text-xs text-zinc-400 space-y-2 my-auto">
                         <div className="flex items-center justify-between">
                           <span className="flex items-center gap-1.5 text-zinc-500">
                             <Calendar className="w-3.5 h-3.5 text-white" /> Date

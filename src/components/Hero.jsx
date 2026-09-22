@@ -69,10 +69,10 @@ export default function Hero({ isReady = false, onHeroComplete }) {
     <>
       <section
         ref={containerRef}
-        className="relative h-[220vh] bg-[#09090b] text-white select-none border-b border-white/10"
+        className="relative h-[220vh] bg-transparent text-white select-none border-b border-white/10"
       >
         {/* Sticky 100vh Viewport */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#09090b] bg-grid-pattern flex items-center justify-center">
+        <div className="sticky top-0 h-screen w-full overflow-hidden bg-transparent bg-grid-pattern flex items-center justify-center">
 
           {/* ==================== SLIDE 1: AEROCON + COUNTDOWN ==================== */}
           <div
@@ -183,7 +183,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                     glareOpacity={0.25}
                     hoverScale={1.02}
                     perspective={1100}
-                    background="#0d0d10"
+                    background="#0e0e12"
                     color="#f5f5f5"
                     shadow={true}
                     shadowColor="#000000"
@@ -191,7 +191,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                     flipOnClick={false}
                     draggable={false}
                     front={
-                      <div className="w-full h-full p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
+                      <div className="w-full h-full bg-[#0e0e12] p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
 
                         {/* Card Header */}
                         <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
@@ -205,7 +205,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
                         {/* Metadata Grid (Venue, Date, Time) */}
                         <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3">
-                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <MapPin className="w-3 h-3 text-white" />
                               <span>Venue</span>
@@ -215,9 +215,9 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                             </div>
                           </div>
 
-                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
-                              <Calendar className="w-3 h-3 text-white" />
+                              <Calendar className="w-3.5 h-3.5 text-white" />
                               <span>Date</span>
                             </div>
                             <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
@@ -225,7 +225,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                             </div>
                           </div>
 
-                          <div className="p-2 sm:p-2.5 bg-zinc-950/80 border border-white/10 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <Clock className="w-3 h-3 text-white" />
                               <span>Time</span>
@@ -243,7 +243,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
                         {/* Perks */}
                         {stargazingData.perk && (
-                          <div className="p-2 bg-zinc-950/80 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3 rounded-sm">
+                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3 rounded-sm">
                             <span className="text-white font-bold">&bull;</span>
                             <span className="truncate">{stargazingData.perk}</span>
                           </div>

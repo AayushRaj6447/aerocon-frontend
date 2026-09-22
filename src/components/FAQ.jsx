@@ -24,7 +24,7 @@ export default function FAQ() {
   ];
 
   return (
-    <section id="faq" className="py-20 bg-[#09090b] border-b border-white/10">
+    <section id="faq" className="py-20 bg-transparent border-b border-white/10">
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-zinc-500 block mb-2">

@@ -14,7 +14,7 @@ export default function Schedule() {
   const currentSchedule = scheduleData[activeDay];
 
   return (
-    <section id="schedule" className="py-20 bg-[#09090b] border-b border-white/10">
+    <section id="schedule" className="py-20 bg-transparent border-b border-white/10">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Simple Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
