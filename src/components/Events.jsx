@@ -78,9 +78,7 @@ export default function Events() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
             Events & Competitions.
           </h2>
-          <p className="text-sm text-zinc-400 mt-3 font-normal">
-            Click any event card to view full briefing, coordinator intel, and official registration form.
-          </p>
+          
         </div>
 
         {/* Event Cards Grid with FlipCard 3D Hover/Tilt & Scroll Reveal */}
