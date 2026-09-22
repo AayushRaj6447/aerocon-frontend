@@ -96,7 +96,7 @@ export default function Events() {
                   tilt={true}
                   tiltMax={12}
                   glare={true}
-                  glareOpacity={0.05}
+                  glareOpacity={0.25}
                   hoverScale={1.03}
                   perspective={1100}
                   background="#0d0d10"
@@ -258,7 +258,7 @@ export default function Events() {
                     tilt={true}
                     tiltMax={10}
                     glare={true}
-                    glareOpacity={0.05}
+                    glareOpacity={0.25}
                     hoverScale={1.02}
                     perspective={1100}
                     background="#0d0d10"

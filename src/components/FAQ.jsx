@@ -7,11 +7,11 @@ export default function FAQ() {
   const faqs = [
     {
       question: 'How do I register for AEROCON events?',
-      answer: 'Click the "Register Now" button on any event card. It directs you straight to the official Google Form for that specific competition.'
+      answer: 'Click the "Register Now" button on any event card. It directs you straight to the Form for that specific competition.'
     },
     {
       question: 'Where will the events take place?',
-      answer: 'All events take place on-campus across NCC Ground, Lawn Circle, Room 217, Room 219, Room 220, and the Main Hall as specified on each event briefing.'
+      answer: 'All events take place on-campus across different rooms as specified on each event briefing.'
     },
     {
       question: 'Can I participate in multiple events?',
@@ -19,7 +19,7 @@ export default function FAQ() {
     },
     {
       question: 'Who can I contact for queries?',
-      answer: 'Contact numbers for student coordinators are listed on each event card, or reach out to AeroSoc via email at aerocon@aerosoc.org.'
+      answer: 'Contact numbers for student coordinators are listed on each event card, or reach out to AeroSoc via email at aerosoc@bitmesra.ac.in.'
     }
   ];
 
