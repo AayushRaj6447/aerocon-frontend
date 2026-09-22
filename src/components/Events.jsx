@@ -70,7 +70,7 @@ export default function Events() {
   return (
     <section id="events" className="py-24 bg-transparent border-b border-white/10 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-zinc-500 block mb-2">
@@ -79,7 +79,7 @@ export default function Events() {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
             Events & Competitions.
           </h2>
-          
+
         </div>
 
         {/* Event Cards Grid with FlipCard 3D Hover/Tilt & Scroll Reveal */}
@@ -161,7 +161,6 @@ export default function Events() {
 
                       {/* Bottom Callout - Event Brief Highlighting */}
                       <div className="pt-3 border-t border-white/10 group-hover:border-white/30 flex items-center justify-between text-xs font-mono text-zinc-400 group-hover:text-white transition-all duration-200">
-                        <span className="tracking-wider">BRIEFING</span>
                         <div className="flex items-center gap-1.5 font-semibold">
                           <span className="group-hover:underline underline-offset-4 decoration-white/50">View Event Briefing</span>
                           <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1.5 transition-transform text-zinc-400 group-hover:text-white" />
