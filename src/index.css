@@ -42,3 +42,136 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
 }
+
+/* Continuous Flight Across Viewport Animations */
+@keyframes flyAcrossDiagonal1 {
+  0% {
+    transform: translate3d(-10vw, 105vh, 0) rotate(-35deg);
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.35;
+  }
+  92% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(115vw, -15vh, 0) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flyAcrossDiagonal2 {
+  0% {
+    transform: translate3d(115vw, 85vh, 0) rotate(-145deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.32;
+  }
+  92% {
+    opacity: 0.32;
+  }
+  100% {
+    transform: translate3d(-15vw, 15vh, 0) rotate(-145deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flyRocketAscent1 {
+  0% {
+    transform: translate3d(22vw, 110vh, 0) rotate(16deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.38;
+  }
+  90% {
+    opacity: 0.38;
+  }
+  100% {
+    transform: translate3d(52vw, -20vh, 0) rotate(16deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flyRocketAscent2 {
+  0% {
+    transform: translate3d(78vw, 110vh, 0) rotate(-14deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 0.35;
+  }
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(50vw, -20vh, 0) rotate(-14deg);
+    opacity: 0;
+  }
+}
+
+@keyframes patrolDroneRight {
+  0% {
+    transform: translate3d(-12vw, 30vh, 0) rotate(8deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.32;
+  }
+  30% {
+    transform: translate3d(25vw, 26vh, 0) rotate(14deg);
+  }
+  60% {
+    transform: translate3d(65vw, 32vh, 0) rotate(4deg);
+  }
+  92% {
+    opacity: 0.32;
+  }
+  100% {
+    transform: translate3d(115vw, 28vh, 0) rotate(8deg);
+    opacity: 0;
+  }
+}
+
+@keyframes patrolDroneLeft {
+  0% {
+    transform: translate3d(115vw, 65vh, 0) rotate(-10deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  40% {
+    transform: translate3d(70vw, 60vh, 0) rotate(-6deg);
+  }
+  70% {
+    transform: translate3d(30vw, 68vh, 0) rotate(-14deg);
+  }
+  92% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate3d(-15vw, 62vh, 0) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flyJetHorizontal {
+  0% {
+    transform: translate3d(-12vw, 50vh, 0) rotate(10deg);
+    opacity: 0;
+  }
+  4% {
+    opacity: 0.35;
+  }
+  92% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate3d(115vw, 42vh, 0) rotate(10deg);
+    opacity: 0;
+  }
+}
+
