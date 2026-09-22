@@ -11,11 +11,11 @@ export default function FAQ() {
     },
     {
       question: 'Where will the events take place?',
-      answer: 'All events take place on-campus across Room 217, Room 219, Room 220, and the Main Hall as specified on each event boarding pass.'
+      answer: 'All events take place on-campus across NCC Ground, Lawn Circle, Room 217, Room 219, Room 220, and the Main Hall as specified on each event briefing.'
     },
     {
       question: 'Can I participate in multiple events?',
-      answer: 'Yes! Check the schedule for 26th and 27th September to make sure timings do not overlap, and register for each event via its respective Google Form.'
+      answer: 'Yes! Check the schedule for 25th, 26th, and 27th September to make sure timings do not overlap, and register for each event via its respective Google Form.'
     },
     {
       question: 'Who can I contact for queries?',

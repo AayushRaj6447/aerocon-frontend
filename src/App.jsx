@@ -15,8 +15,8 @@ export default function App() {
       <Navbar visible={heroReady} />
       <main>
         <Hero isReady={heroReady} onHeroComplete={() => setHeroReady(true)} />
-        <About />
         <Events />
+        <About />
         <Schedule />
         <FAQ />
       </main>

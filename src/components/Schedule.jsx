@@ -3,9 +3,10 @@ import { Clock, MapPin, Calendar } from 'lucide-react';
 import { scheduleData } from '../data/scheduleData';
 
 export default function Schedule() {
-  const [activeDay, setActiveDay] = useState('day1');
+  const [activeDay, setActiveDay] = useState('day0');
 
   const days = [
+    { key: 'day0', label: 'Day 00', date: '25.09.2026' },
     { key: 'day1', label: 'Day 01', date: '26.09.2026' },
     { key: 'day2', label: 'Day 02', date: '27.09.2026' },
   ];
@@ -18,7 +19,7 @@ export default function Schedule() {
         {/* Simple Header */}
         <div className="text-center max-w-xl mx-auto mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-zinc-500 block mb-2">
-            TIMELINE // 26 & 27 SEPT 2026
+            TIMELINE // 25, 26 & 27 SEPT 2026
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
             Event Schedule.

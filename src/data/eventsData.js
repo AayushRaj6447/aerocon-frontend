@@ -4,6 +4,21 @@ import quizImg from '../assets/tickets/aeroquiz.jpg';
 import simImg from '../assets/tickets/simulation-zero.jpg';
 import skyImg from '../assets/tickets/sky-breach.jpg';
 
+export const droneShowData = {
+  id: 'drone-show',
+  title: 'DRONE SHOW',
+  category: 'Aerial Light Spectacle',
+  tagline: 'LIGHTS. FORMATIONS. SKY SPECTACLE.',
+  date: '25.09.2026',
+  time: '05:30 P.M',
+  venue: 'NCC GROUND',
+  shortDesc: 'A breathtaking synchronized aerial drone light show. Watch autonomous multi-rotor swarms perform high-precision 3D formations, aerodynamic maneuvers, and illuminating light patterns over the evening sky.',
+  perk: 'Live Aerial Swarm Choreography • Open to All Students & Visitors',
+  contacts: [
+    { name: 'AeroSoc Flight Team', phone: 'Official Helpdesk' }
+  ]
+};
+
 export const stargazingData = {
   id: 'stargazing',
   title: 'STARGAZING',
@@ -21,6 +36,7 @@ export const stargazingData = {
 };
 
 export const eventsData = [
+  droneShowData,
   stargazingData,
   {
     id: 'simulation-zero',

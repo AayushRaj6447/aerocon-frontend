@@ -73,7 +73,7 @@ export default function Events() {
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <span className="text-xs font-mono uppercase tracking-widest text-zinc-500 block mb-2">
-            AEROCON 2026 // 6 OFFICIAL EVENTS
+            AEROCON 2026 // 7 OFFICIAL ATTRACTIONS & EVENTS
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white">
             Events & Competitions.
@@ -359,7 +359,7 @@ export default function Events() {
                               <span>Book Your Slot</span>
                               <ArrowRight className="w-4 h-4" />
                             </button>
-                          ) : (
+                          ) : activeEvent.formUrl ? (
                             <a
                               href={activeEvent.formUrl}
                               target="_blank"
@@ -369,6 +369,10 @@ export default function Events() {
                               <span>Register on Form</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
+                          ) : (
+                            <div className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider text-center shadow-lg">
+                              <span>Open to All &bull; {activeEvent.venue}</span>
+                            </div>
                           )}
                         </div>
 

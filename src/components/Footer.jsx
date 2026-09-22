@@ -24,8 +24,8 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-medium text-zinc-400">
-            <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#events" className="hover:text-white transition-colors">Events</a>
+            <a href="#about" className="hover:text-white transition-colors">About</a>
             <a href="#schedule" className="hover:text-white transition-colors">Schedule</a>
             <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
           </div>
@@ -40,7 +40,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-6 text-center text-xs font-mono text-zinc-500">
-          &copy; {new Date().getFullYear()} AeroSoc. All Rights Reserved &bull; AEROCON 2026 (26 - 27 Sept).
+          &copy; {new Date().getFullYear()} AeroSoc. All Rights Reserved &bull; AEROCON 2026 (25 - 27 Sept).
         </div>
       </div>
     </footer>

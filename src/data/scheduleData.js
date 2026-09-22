@@ -1,4 +1,17 @@
 export const scheduleData = {
+  day0: {
+    label: 'Day 00',
+    date: '25.09.2026',
+    items: [
+      {
+        time: '05:30 P.M',
+        title: 'DRONE SHOW',
+        tagline: 'LIGHTS. FORMATIONS. SKY SPECTACLE.',
+        venue: 'NCC GROUND',
+        desc: 'Inaugural aerial drone light show. Precision swarms, light choreography, and synchronized formations illuminating the evening sky.'
+      }
+    ]
+  },
   day1: {
     label: 'Day 01',
     date: '26.09.2026',
