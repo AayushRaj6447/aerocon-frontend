@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Calendar, Clock, MapPin, Phone, X, ArrowRight } from 'lucide-react';
+import { ExternalLink, Calendar, Clock, MapPin, Phone, X, ArrowRight, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { eventsData } from '../data/eventsData';
 import FlipCard from './FlipCard';
@@ -50,6 +50,7 @@ function ScrollRevealCard({ children, index }) {
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState(null);
   const [isStargazingModalOpen, setIsStargazingModalOpen] = useState(false);
+  const [stargazingMode, setStargazingMode] = useState('book');
 
   // Close modal on Escape key
   useEffect(() => {
@@ -349,14 +350,32 @@ export default function Events() {
                         {/* Action Buttons */}
                         <div className="pt-3 border-t border-white/10 flex items-center gap-3">
                           {activeEvent.isStargazing ? (
-                            <button
-                              type="button"
-                              onClick={() => setIsStargazingModalOpen(true)}
-                              className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
-                            >
-                              <span>Book Your Slot</span>
-                              <ArrowRight className="w-4 h-4" />
-                            </button>
+                            <div className="w-full space-y-2">
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setStargazingMode('book');
+                                  setIsStargazingModalOpen(true);
+                                }}
+                                className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                              >
+                                <span>Book Your Slot</span>
+                                <ArrowRight className="w-4 h-4" />
+                              </button>
+                              <div className="text-center">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setStargazingMode('view');
+                                    setIsStargazingModalOpen(true);
+                                  }}
+                                  className="text-[11px] font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1.5 underline underline-offset-4"
+                                >
+                                  <Search className="w-3 h-3 text-zinc-400" />
+                                  <span>Already booked? View Your Slot</span>
+                                </button>
+                              </div>
+                            </div>
                           ) : activeEvent.formUrl ? (
                             <a
                               href={activeEvent.formUrl}
@@ -389,6 +408,7 @@ export default function Events() {
       <StargazingModal
         isOpen={isStargazingModalOpen}
         onClose={() => setIsStargazingModalOpen(false)}
+        initialMode={stargazingMode}
       />
     </section>
   );

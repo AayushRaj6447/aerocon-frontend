@@ -10,13 +10,21 @@ import {
   RefreshCw,
   AlertCircle,
   Loader2,
-  Sparkles
+  Sparkles,
+  Search
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { QRCodeCanvas } from 'qrcode.react';
 import { API_BASE, prefetchSlots, getCachedSlots } from '../services/slotService';
 
-export default function StargazingModal({ isOpen, onClose }) {
+export default function StargazingModal({ isOpen, onClose, initialMode = 'book' }) {
+  const [activeTab, setActiveTab] = useState(initialMode); // 'book' | 'view'
+
+  // Lookup state
+  const [lookupEmail, setLookupEmail] = useState('');
+  const [lookingUp, setLookingUp] = useState(false);
+  const [lookupError, setLookupError] = useState(null);
+
   // Slots State
   const [slots, setSlots] = useState([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
@@ -37,6 +45,56 @@ export default function StargazingModal({ isOpen, onClose }) {
   // Success State
   const [confirmed, setConfirmed] = useState(false);
   const [passData, setPassData] = useState(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab(initialMode);
+      setLookupError(null);
+      setSubmitError(null);
+      setConfirmed(false);
+    }
+  }, [isOpen, initialMode]);
+
+  // Lookup registration by email
+  const handleLookupSubmit = async (e) => {
+    e.preventDefault();
+    const query = lookupEmail.trim().toLowerCase();
+    if (!query) return;
+
+    setLookingUp(true);
+    setLookupError(null);
+
+    try {
+      const res = await fetch(`${API_BASE}/registrations`);
+      if (!res.ok) throw new Error(`Server returned ${res.status}`);
+      const result = await res.json();
+      const list = result.data || [];
+
+      const matched = list.find((r) => r.email && r.email.trim().toLowerCase() === query);
+
+      if (matched) {
+        setPassData({
+          code: matched.passCode,
+          name: matched.name,
+          email: matched.email,
+          roll: matched.roll,
+          batch: matched.batch,
+          slotNumber: matched.slot?.slotNumber || 1,
+          slotId: matched.slot?._id || matched.slot?.id || '—',
+          displayTime: matched.slot?.displayTime || 'Assigned Slot',
+          venue: 'Lawn Circle',
+        });
+        setConfirmed(true);
+      } else {
+        setLookupError(`No slot registration found for "${lookupEmail.trim()}". Please verify the email address or book a new slot.`);
+      }
+    } catch (err) {
+      console.error('Lookup error:', err);
+      setLookupError('Network error connecting to reservation server. The server may still be waking up. Please try again.');
+    } finally {
+      setLookingUp(false);
+    }
+  };
 
   // Fetch or retrieve pre-fetched slots
   const fetchSlots = async (force = false) => {
@@ -220,14 +278,51 @@ export default function StargazingModal({ isOpen, onClose }) {
             </span>
           </div>
           <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-            Book Your Stargazing Slot
+            {activeTab === 'view' ? 'View Your Stargazing Pass' : 'Book Your Stargazing Slot'}
           </h3>
           <p className="text-xs text-zinc-400 mt-1">
-            Reserve your 10-minute observation slot at the high-powered telescope array.
+            {activeTab === 'view'
+              ? 'Enter your email to retrieve your assigned time slot, slot ID, and download your QR boarding pass.'
+              : 'Reserve your 10-minute observation slot at the high-powered telescope array.'}
           </p>
         </div>
 
-        {!confirmed ? (
+        {/* Mode Switcher Tabs */}
+        {!confirmed && (
+          <div className="flex border-b border-white/10 mb-5">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('book');
+                setSubmitError(null);
+              }}
+              className={`flex-1 py-2 text-xs font-mono uppercase tracking-wider font-bold transition-colors border-b-2 -mb-[1px] ${
+                activeTab === 'book'
+                  ? 'border-white text-white bg-zinc-800/40'
+                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              Book a Slot
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('view');
+                setLookupError(null);
+              }}
+              className={`flex-1 py-2 text-xs font-mono uppercase tracking-wider font-bold transition-colors border-b-2 -mb-[1px] flex items-center justify-center gap-1.5 ${
+                activeTab === 'view'
+                  ? 'border-white text-white bg-zinc-800/40'
+                  : 'border-transparent text-zinc-400 hover:text-zinc-200'
+              }`}
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>View Your Slot</span>
+            </button>
+          </div>
+        )}
+
+        {!confirmed && activeTab === 'book' ? (
           <form onSubmit={handleRegisterSubmit} className="space-y-4">
             
             {/* Meta Summary Box */}
@@ -346,7 +441,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Aayush Raj"
+                  placeholder="e.g. Aayush Sharma"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white focus:outline-none focus:border-white transition-colors"
@@ -361,7 +456,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                 <input
                   type="email"
                   required
-                  placeholder="btech10xxx.2x@bitmesra.ac.in"
+                  placeholder="student@college.edu"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white focus:outline-none focus:border-white transition-colors"
@@ -377,7 +472,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                   <input
                     type="text"
                     required
-                    placeholder="e.g. BTECH/10XXX/2X"
+                    placeholder="e.g. 25BCS101"
                     value={formData.roll}
                     onChange={(e) => setFormData({ ...formData, roll: e.target.value })}
                     className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white uppercase focus:outline-none focus:border-white transition-colors font-mono"
@@ -429,7 +524,7 @@ export default function StargazingModal({ isOpen, onClose }) {
             )}
 
             {/* Submit Action */}
-            <div className="pt-2 border-t border-white/10 flex justify-end">
+            <div className="pt-2 border-t border-white/10 flex flex-col gap-2">
               <button
                 type="submit"
                 disabled={submitting || slots.length === 0}
@@ -447,18 +542,89 @@ export default function StargazingModal({ isOpen, onClose }) {
                   </>
                 )}
               </button>
+
+              <div className="text-center pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveTab('view');
+                    setLookupError(null);
+                  }}
+                  className="text-xs font-mono text-zinc-400 hover:text-white transition-colors underline underline-offset-4"
+                >
+                  Already booked? View or Download your slot pass
+                </button>
+              </div>
+            </div>
+          </form>
+        ) : !confirmed && activeTab === 'view' ? (
+          /* VIEW YOUR SLOT FORM (EMAIL LOOKUP) */
+          <form onSubmit={handleLookupSubmit} className="space-y-4">
+            <div className="p-3 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-400 leading-relaxed">
+              Enter the email address you registered with to retrieve your assigned observation slot, slot ID/passcode, and download your QR boarding pass.
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono uppercase text-zinc-400 mb-1">
+                Registered Email Address *
+              </label>
+              <input
+                type="email"
+                required
+                placeholder="e.g. student@college.edu"
+                value={lookupEmail}
+                onChange={(e) => setLookupEmail(e.target.value)}
+                className="w-full p-2.5 bg-zinc-950 border border-white/15 text-sm text-white focus:outline-none focus:border-white transition-colors font-mono"
+              />
+            </div>
+
+            {lookupError && (
+              <div className="p-3 bg-red-950/40 border border-red-500/40 text-red-300 text-xs font-mono flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                <span>{lookupError}</span>
+              </div>
+            )}
+
+            <div className="pt-2 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => setActiveTab('book')}
+                className="text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+              >
+                &larr; Need to reserve a new slot?
+              </button>
+
+              <button
+                type="submit"
+                disabled={lookingUp || !lookupEmail.trim()}
+                className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-semibold text-xs font-mono uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              >
+                {lookingUp ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Finding Slot...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Find My Slot Pass</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
+              </button>
             </div>
           </form>
         ) : (
-          /* CONFIRMED BOARDING PASS WITH QR CODE */
+          /* CONFIRMED BOARDING PASS WITH QR CODE & SLOT ID */
           <div className="space-y-4 animate-in zoom-in-95 duration-200">
             <div className="text-center">
               <div className="inline-flex p-2 bg-emerald-950 border border-emerald-500/40 text-emerald-400 rounded-full mb-2">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
-              <h3 className="text-2xl font-bold text-white tracking-tight">Slot Reserved!</h3>
+              <h3 className="text-2xl font-bold text-white tracking-tight">
+                {activeTab === 'view' ? 'Slot Details Found!' : 'Slot Reserved!'}
+              </h3>
               <p className="text-xs text-zinc-400 mt-0.5">
-                Your official Stargazing Boarding Pass has been issued.
+                Your official Stargazing Boarding Pass and QR Code.
               </p>
             </div>
 
@@ -469,7 +635,7 @@ export default function StargazingModal({ isOpen, onClose }) {
               <div className="flex items-center justify-between border-b border-white/10 pb-2.5">
                 <div>
                   <span className="text-[10px] text-zinc-500 uppercase tracking-widest block">
-                    AEROCON 2026 // PASSCODE
+                    AEROCON 2026 // PASSCODE / SLOT ID
                   </span>
                   <span className="text-2xl font-black text-white tracking-wider font-mono">
                     {passData?.code}
@@ -487,7 +653,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                   <QRCodeCanvas
                     id="stargazing-qr-canvas"
                     value={passData?.code || 'AEROCON'}
-                    size={150}
+                    size={140}
                     bgColor="#ffffff"
                     fgColor="#000000"
                     level="H"
@@ -510,12 +676,14 @@ export default function StargazingModal({ isOpen, onClose }) {
                   <span className="text-white font-bold block">{passData?.roll} ({passData?.batch})</span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 uppercase block text-[9px]">Time Slot</span>
-                  <span className="text-white font-bold block">{passData?.displayTime}</span>
+                  <span className="text-zinc-500 uppercase block text-[9px]">Slot & Time</span>
+                  <span className="text-white font-bold block">
+                    {passData?.slotNumber ? `Slot #${passData.slotNumber} • ` : ''}{passData?.displayTime}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 uppercase block text-[9px]">Status</span>
-                  <span className="text-emerald-400 font-bold block">CONFIRMED</span>
+                  <span className="text-zinc-500 uppercase block text-[9px]">Passcode / Slot ID</span>
+                  <span className="text-emerald-400 font-bold block">{passData?.code}</span>
                 </div>
               </div>
             </div>
@@ -533,10 +701,18 @@ export default function StargazingModal({ isOpen, onClose }) {
 
               <button
                 type="button"
-                onClick={handleResetRegistration}
+                onClick={() => {
+                  setConfirmed(false);
+                  setPassData(null);
+                  if (activeTab === 'view') {
+                    setLookupEmail('');
+                  } else {
+                    handleResetRegistration();
+                  }
+                }}
                 className="py-2.5 px-4 bg-zinc-950 hover:bg-zinc-900 text-zinc-300 text-xs font-mono uppercase tracking-wider transition-colors border border-white/10"
               >
-                Book Another
+                {activeTab === 'view' ? 'Search Another' : 'Book Another'}
               </button>
 
               <button

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, MapPin, ArrowRight, Search } from 'lucide-react';
 import MainHero from './mainhero';
 import StargazingModal from './StargazingModal';
 import FlipCard from './FlipCard';
@@ -9,6 +9,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState('book');
 
   // Countdown timer to 25 September 2026, 05:30 PM (Inaugural Drone Show)
   const calculateTimeLeft = () => {
@@ -249,18 +250,36 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                         )}
 
                         {/* CTA & Booking Button */}
-                        <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                        <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
+                          <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setModalMode('book');
+                                setIsModalOpen(true);
+                              }}
+                              className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                            >
+                              <span>Book Your Slot</span>
+                              <ArrowRight className="w-4 h-4" />
+                            </button>
+                            <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500">
+                              Lawn Circle &bull; Free Admission
+                            </span>
+                          </div>
+
+                          {/* Just below Book Your Slot: View Your Slot */}
                           <button
                             type="button"
-                            onClick={() => setIsModalOpen(true)}
-                            className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                            onClick={() => {
+                              setModalMode('view');
+                              setIsModalOpen(true);
+                            }}
+                            className="text-left text-[11px] font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1.5 underline underline-offset-4"
                           >
-                            <span>Book Your Slot</span>
-                            <ArrowRight className="w-4 h-4" />
+                            <Search className="w-3 h-3 text-zinc-400" />
+                            <span>Already booked? View / Download Your Slot Pass</span>
                           </button>
-                          <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500">
-                            Lawn Circle &bull; Free Admission
-                          </span>
                         </div>
 
                       </div>
@@ -279,6 +298,7 @@ export default function Hero({ isReady = false, onHeroComplete }) {
       <StargazingModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        initialMode={modalMode}
       />
     </>
   );
