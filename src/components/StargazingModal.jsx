@@ -122,7 +122,9 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
     // If not forcing refresh, check if slots were already pre-fetched on website load
     if (!force) {
       const cached = getCachedSlots();
-      if (cached && cached.length > 0) {
+      const has26 = cached?.some((s) => String(s.date).includes('26'));
+      const has27 = cached?.some((s) => String(s.date).includes('27'));
+      if (cached && cached.length > 0 && has26 && has27) {
         setSlots(cached);
         return;
       }
@@ -146,6 +148,13 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
       fetchSlots(false);
     }
   }, [isOpen]);
+
+  // When selectedDate changes, if filteredSlots is empty, force refresh
+  useEffect(() => {
+    if (isOpen && filteredSlots.length === 0 && slots.length > 0) {
+      fetchSlots(true);
+    }
+  }, [selectedDate, isOpen]);
 
   if (!isOpen) return null;
 
@@ -358,35 +367,48 @@ export default function StargazingModal({ isOpen, onClose, initialMode = 'book' 
                 <Calendar className="w-3.5 h-3.5 text-white" />
                 <span>1. Select Observation Date *</span>
               </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedDate('26')}
-                  className={`py-2 px-3 text-xs font-mono border transition-all text-center flex flex-col items-center justify-center ${
-                    selectedDate === '26'
-                      ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
-                      : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                  }`}
-                >
-                  <span className="text-xs tracking-wide">26 Sep 2026</span>
-                  <span className={`text-[10px] ${selectedDate === '26' ? 'text-zinc-700 font-normal' : 'text-zinc-500'}`}>
-                    Day 1 (Friday)
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSelectedDate('27')}
-                  className={`py-2 px-3 text-xs font-mono border transition-all text-center flex flex-col items-center justify-center ${
-                    selectedDate === '27'
-                      ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
-                      : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
-                  }`}
-                >
-                  <span className="text-xs tracking-wide">27 Sep 2026</span>
-                  <span className={`text-[10px] ${selectedDate === '27' ? 'text-zinc-700 font-normal' : 'text-zinc-500'}`}>
-                    Day 2 (Saturday)
-                  </span>
-                </button>
+              <div className="space-y-1.5">
+                <div className="relative">
+                  <select
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className="w-full p-2.5 bg-zinc-950 border border-white/15 text-xs sm:text-sm text-white font-mono focus:outline-none focus:border-white transition-colors cursor-pointer appearance-none pr-8"
+                  >
+                    <option value="26">26 September 2026 (Day 1 - Friday)</option>
+                    <option value="27">27 September 2026 (Day 2 - Saturday)</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2.5 text-zinc-400">
+                    <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Quick Date Switcher Buttons */}
+                <div className="grid grid-cols-2 gap-2 pt-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDate('26')}
+                    className={`py-1.5 px-3 text-xs font-mono border transition-all text-center flex items-center justify-center gap-1.5 ${
+                      selectedDate === '26'
+                        ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
+                        : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+                    }`}
+                  >
+                    <span>26 Sep (Day 1)</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedDate('27')}
+                    className={`py-1.5 px-3 text-xs font-mono border transition-all text-center flex items-center justify-center gap-1.5 ${
+                      selectedDate === '27'
+                        ? 'bg-white text-black font-bold border-white shadow-[0_0_12px_rgba(255,255,255,0.2)]'
+                        : 'bg-zinc-950 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+                    }`}
+                  >
+                    <span>27 Sep (Day 2)</span>
+                  </button>
+                </div>
               </div>
             </div>
 

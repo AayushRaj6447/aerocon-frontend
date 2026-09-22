@@ -26,7 +26,7 @@ export const stargazingData = {
   category: 'Night Sky Observation',
   tagline: 'PEER DEEP INTO THE COSMOS.',
   date: '26 & 27 Sep',
-  time: '7:00 - 8:00 PM',
+  time: '06:30 - 08:00 PM',
   venue: 'Lawn Circle',
   isStargazing: true,
   shortDesc: 'Peer deep into the cosmos through astronomical telescopes. Observe lunar craters, Saturn’s planetary rings, Jupiter’s Galilean moons, and distant star clusters under guided constellation tours.',
