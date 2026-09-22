@@ -123,20 +123,6 @@ export const JetSketch = ({ className = 'w-9 h-9' }) => (
 export default function FloatingSketches() {
   const items = [
     {
-      type: 'jet',
-      pos: 'top-[10%] right-[8%] -rotate-[32deg]',
-      size: 'w-11 h-11 sm:w-13 sm:h-13',
-      anim: 'floatDeep 10s ease-in-out infinite',
-      delay: '-3s',
-    },
-    {
-      type: 'rocket',
-      pos: 'top-[20%] left-[5%] rotate-[18deg]',
-      size: 'w-10 h-10 sm:w-12 sm:h-12',
-      anim: 'floatSway 13s ease-in-out infinite',
-      delay: '-7s',
-    },
-    {
       type: 'drone',
       pos: 'top-[34%] right-[12%] rotate-[10deg]',
       size: 'w-11 h-11 sm:w-13 sm:h-13',
