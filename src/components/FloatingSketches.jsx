@@ -121,62 +121,69 @@ export const JetSketch = ({ className = 'w-9 h-9' }) => (
 );
 
 export default function FloatingSketches() {
-  const vehicles = [
+  const items = [
     {
       type: 'jet',
+      pos: 'top-[10%] right-[8%] -rotate-[32deg]',
       size: 'w-11 h-11 sm:w-13 sm:h-13',
-      style: {
-        animation: 'flyAcrossDiagonal1 36s linear infinite',
-        animationDelay: '-12s',
-      },
+      anim: 'floatDeep 10s ease-in-out infinite',
+      delay: '-3s',
     },
     {
       type: 'rocket',
+      pos: 'top-[20%] left-[5%] rotate-[18deg]',
       size: 'w-10 h-10 sm:w-12 sm:h-12',
-      style: {
-        animation: 'flyRocketAscent1 42s linear infinite',
-        animationDelay: '-21s',
-      },
+      anim: 'floatSway 13s ease-in-out infinite',
+      delay: '-7s',
     },
     {
       type: 'drone',
+      pos: 'top-[34%] right-[12%] rotate-[10deg]',
       size: 'w-11 h-11 sm:w-13 sm:h-13',
-      style: {
-        animation: 'patrolDroneRight 46s ease-in-out infinite',
-        animationDelay: '-16s',
-      },
+      anim: 'floatDriftZone 16s ease-in-out infinite',
+      delay: '-4s',
     },
     {
       type: 'jet',
+      pos: 'top-[48%] left-[7%] rotate-[38deg]',
       size: 'w-10 h-10 sm:w-12 sm:h-12',
-      style: {
-        animation: 'flyAcrossDiagonal2 38s linear infinite',
-        animationDelay: '-24s',
-      },
+      anim: 'floatSway 12s ease-in-out infinite',
+      delay: '-9s',
     },
     {
       type: 'rocket',
+      pos: 'top-[62%] right-[7%] -rotate-[22deg]',
       size: 'w-10 h-10 sm:w-12 sm:h-12',
-      style: {
-        animation: 'flyRocketAscent2 44s linear infinite',
-        animationDelay: '-8s',
-      },
+      anim: 'floatDeep 11s ease-in-out infinite',
+      delay: '-2s',
     },
     {
       type: 'drone',
+      pos: 'top-[75%] left-[6%] -rotate-[14deg]',
       size: 'w-11 h-11 sm:w-13 sm:h-13',
-      style: {
-        animation: 'patrolDroneLeft 50s ease-in-out infinite',
-        animationDelay: '-30s',
-      },
+      anim: 'floatDriftZone 15s ease-in-out infinite',
+      delay: '-11s',
     },
     {
       type: 'jet',
+      pos: 'top-[87%] right-[10%] rotate-[15deg]',
       size: 'w-10 h-10 sm:w-12 sm:h-12',
-      style: {
-        animation: 'flyJetHorizontal 34s linear infinite',
-        animationDelay: '-17s',
-      },
+      anim: 'floatSway 14s ease-in-out infinite',
+      delay: '-6s',
+    },
+    {
+      type: 'rocket',
+      pos: 'top-[94%] left-[8%] rotate-[26deg]',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
+      anim: 'floatDeep 12s ease-in-out infinite',
+      delay: '-8s',
+    },
+    {
+      type: 'drone',
+      pos: 'top-[42%] right-[4%] rotate-[6deg]',
+      size: 'w-10 h-10 sm:w-12 sm:h-12',
+      anim: 'floatSway 15s ease-in-out infinite',
+      delay: '-5s',
     },
   ];
 
@@ -185,18 +192,24 @@ export default function FloatingSketches() {
       className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
       aria-hidden="true"
     >
-      {vehicles.map((v, i) => {
+      {items.map((item, index) => {
         let Icon = JetSketch;
-        if (v.type === 'rocket') Icon = RocketSketch;
-        if (v.type === 'drone') Icon = DroneSketch;
+        if (item.type === 'rocket') Icon = RocketSketch;
+        if (item.type === 'drone') Icon = DroneSketch;
 
         return (
           <div
-            key={i}
-            className="absolute top-0 left-0 text-white pointer-events-none will-change-transform"
-            style={v.style}
+            key={index}
+            className={`absolute ${item.pos} opacity-[0.23] text-white pointer-events-none will-change-transform`}
           >
-            <Icon className={v.size} />
+            <div
+              style={{
+                animation: item.anim,
+                animationDelay: item.delay,
+              }}
+            >
+              <Icon className={item.size} />
+            </div>
           </div>
         );
       })}
