@@ -33,13 +33,13 @@ export default function Sponsors() {
           {sponsors.map((s, idx) => (
             <div
               key={idx}
-              className="bg-white p-5 border border-black/15 hover:border-black transition-all duration-200 text-center flex flex-col justify-between group shadow-sm"
+              className="bg-white p-5 border border-black/15 text-center flex flex-col justify-between shadow-sm"
             >
               <div className="text-[9px] font-mono uppercase text-zinc-400 mb-3 tracking-wider">
                 {s.tier}
               </div>
               <div className="py-2">
-                <h4 className="text-sm font-bold text-black group-hover:text-zinc-800 transition-colors leading-snug">
+                <h4 className="text-sm font-bold text-black leading-snug">
                   {s.name}
                 </h4>
               </div>

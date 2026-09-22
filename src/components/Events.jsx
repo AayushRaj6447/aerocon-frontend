@@ -92,11 +92,11 @@ export default function Events() {
                   width="100%"
                   height={450}
                   radius={16}
-                  tilt={true}
+                  tilt={false}
                   tiltMax={12}
-                  glare={true}
+                  glare={false}
                   glareOpacity={0.25}
-                  hoverScale={1.03}
+                  hoverScale={1}
                   perspective={1100}
                   background="#0e0e12"
                   color="#f5f5f5"
@@ -122,7 +122,7 @@ export default function Events() {
                         </div>
 
                         {/* Title & Tagline */}
-                        <h3 className="text-2xl font-bold text-white tracking-tight mb-1 group-hover:text-white transition-colors">
+                        <h3 className="text-2xl font-bold text-white tracking-tight mb-1">
                           {evt.title}
                         </h3>
                         <div className="text-xs font-mono text-zinc-400 font-semibold tracking-wider mb-4">
@@ -159,12 +159,12 @@ export default function Events() {
                         </div>
                       </div>
 
-                      {/* Bottom Callout */}
-                      <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-zinc-400 group-hover:text-white transition-colors">
-                        <span>BRIEFING</span>
-                        <div className="flex items-center gap-1 font-semibold">
-                          <span>View Event Briefing</span>
-                          <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
+                      {/* Bottom Callout - Event Brief Highlighting */}
+                      <div className="pt-3 border-t border-white/10 group-hover:border-white/30 flex items-center justify-between text-xs font-mono text-zinc-400 group-hover:text-white transition-all duration-200">
+                        <span className="tracking-wider">BRIEFING</span>
+                        <div className="flex items-center gap-1.5 font-semibold">
+                          <span className="group-hover:underline underline-offset-4 decoration-white/50">View Event Briefing</span>
+                          <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1.5 transition-transform text-zinc-400 group-hover:text-white" />
                         </div>
                       </div>
                     </div>
@@ -254,11 +254,11 @@ export default function Events() {
                     width="100%"
                     height={430}
                     radius={16}
-                    tilt={true}
+                    tilt={false}
                     tiltMax={10}
-                    glare={true}
+                    glare={false}
                     glareOpacity={0.25}
-                    hoverScale={1.02}
+                    hoverScale={1}
                     perspective={1100}
                     background="#0d0d10"
                     color="#f5f5f5"

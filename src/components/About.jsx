@@ -43,7 +43,7 @@ export default function About() {
             return (
               <div
                 key={idx}
-                className="bg-zinc-900/50 p-6 border border-white/10 shadow-sm hover:border-white/30 transition-colors"
+                className="bg-zinc-900/50 p-6 border border-white/10 shadow-sm"
               >
                 <div className="w-10 h-10 bg-white text-black flex items-center justify-center mb-4">
                   <Icon className="w-5 h-5" />

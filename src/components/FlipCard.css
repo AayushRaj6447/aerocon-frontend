@@ -70,9 +70,9 @@
   transition: border-color 0.25s ease;
 }
 
-.flip-card:hover .flip-card__face {
+/* .flip-card:hover .flip-card__face {
   border-color: rgba(255, 255, 255, 0.45);
-}
+} */
 
 .flip-card__face img {
   -webkit-user-drag: none;
