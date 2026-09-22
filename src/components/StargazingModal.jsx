@@ -14,8 +14,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { QRCodeCanvas } from 'qrcode.react';
-
-const API_BASE = 'https://aerocon-backend.onrender.com/api';
+import { API_BASE, prefetchSlots, getCachedSlots } from '../services/slotService';
 
 export default function StargazingModal({ isOpen, onClose }) {
   // Slots State
@@ -39,25 +38,35 @@ export default function StargazingModal({ isOpen, onClose }) {
   const [confirmed, setConfirmed] = useState(false);
   const [passData, setPassData] = useState(null);
 
-  // Fetch slots whenever the modal opens
-  const fetchSlots = async () => {
+  // Fetch or retrieve pre-fetched slots
+  const fetchSlots = async (force = false) => {
+    // If not forcing refresh, check if slots were already pre-fetched on website load
+    if (!force) {
+      const cached = getCachedSlots();
+      if (cached && cached.length > 0) {
+        setSlots(cached);
+        if (!selectedSlotId) {
+          const firstAvailable = cached.find((s) => !s.isFull && s.remainingSeats > 0);
+          if (firstAvailable) setSelectedSlotId(firstAvailable._id);
+        }
+        return;
+      }
+    }
+
     setLoadingSlots(true);
     setSlotsError(null);
     try {
-      const res = await fetch(`${API_BASE}/slots`);
-      if (!res.ok) throw new Error(`Server returned ${res.status}`);
-      const data = await res.json();
-      const slotList = data.data || [];
-      setSlots(slotList);
+      const slotList = await prefetchSlots(force);
+      setSlots(slotList || []);
 
       // Auto-select first available slot if none selected or current is full
-      const firstAvailable = slotList.find((s) => !s.isFull && s.remainingSeats > 0);
+      const firstAvailable = (slotList || []).find((s) => !s.isFull && s.remainingSeats > 0);
       if (firstAvailable) {
         setSelectedSlotId(firstAvailable._id);
       }
     } catch (err) {
       console.error('Failed to fetch slots:', err);
-      setSlotsError('Could not connect to the reservation server. Please ensure you have an active internet connection.');
+      setSlotsError('Could not connect to the reservation server. The server on Render may still be waking up. Please click Refresh in a few seconds.');
     } finally {
       setLoadingSlots(false);
     }
@@ -65,7 +74,7 @@ export default function StargazingModal({ isOpen, onClose }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetchSlots();
+      fetchSlots(false);
     }
   }, [isOpen]);
 
@@ -124,7 +133,7 @@ export default function StargazingModal({ isOpen, onClose }) {
         } catch (err) {}
 
         // Refresh slots in background so remaining seats are accurate
-        fetchSlots();
+        fetchSlots(true);
       } else {
         // Error from server (e.g. duplicate or full)
         setSubmitError(result.message || 'Registration failed. Please try another slot.');
@@ -184,7 +193,7 @@ export default function StargazingModal({ isOpen, onClose }) {
       roll: '',
       batch: 'k25',
     });
-    fetchSlots();
+    fetchSlots(true);
   };
 
   return (
@@ -242,7 +251,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                 </label>
                 <button
                   type="button"
-                  onClick={fetchSlots}
+                  onClick={() => fetchSlots(true)}
                   disabled={loadingSlots}
                   className="text-[10px] font-mono text-zinc-400 hover:text-white flex items-center gap-1 transition-colors"
                   title="Refresh available slots"
@@ -264,7 +273,7 @@ export default function StargazingModal({ isOpen, onClose }) {
                     <p>{slotsError}</p>
                     <button
                       type="button"
-                      onClick={fetchSlots}
+                      onClick={() => fetchSlots(true)}
                       className="mt-2 px-2.5 py-1 bg-white text-black font-bold text-[10px] uppercase hover:bg-zinc-200"
                     >
                       Retry Connecting
