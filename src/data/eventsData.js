@@ -12,7 +12,7 @@ export const droneShowData = {
   date: '25.09.2026',
   time: '05:30 P.M',
   venue: 'NCC GROUND',
-  shortDesc: 'A breathtaking synchronized aerial drone light show. Watch autonomous multi-rotor swarms perform high-precision 3D formations, aerodynamic maneuvers, and illuminating light patterns over the evening sky.',
+  shortDesc: 'A breathtaking synchronized aerial drone show. Watch autonomous multi-rotor perform high-precision aerodynamic maneuvers, and illuminating light over the evening sky.',
   perk: 'Live Aerial Swarm Choreography • Open to All Students & Visitors',
   contacts: [
     { name: 'AeroSoc Flight Team', phone: 'Official Helpdesk' }
@@ -31,7 +31,8 @@ export const stargazingData = {
   shortDesc: 'Peer deep into the cosmos through astronomical telescopes. Observe lunar craters, Saturn’s planetary rings, Jupiter’s Galilean moons, and distant star clusters under guided constellation tours.',
   perk: 'Astronomical Telescopes & Astro-Photography Mounts Provided',
   contacts: [
-    { name: 'AeroSoc Astronomy Wing', phone: 'Official Helpdesk' }
+    { name: 'Aayush', phone: '91100 57864' },
+    {name: 'Abhishek', phone: '62021 74621'}
   ]
 };
 
