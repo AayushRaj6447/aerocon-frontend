@@ -98,13 +98,13 @@ export default function Events() {
                   shadowOpacity={0.45}
                   flipOnClick={false}
                   draggable={false}
-                  onClick={() => setActiveEvent(evt)}
+                      onClick={() => setActiveEvent(evt)}
                   front={
-                    <div className="w-full h-full bg-[#0e0e12] border border-white/15 flex flex-col justify-between p-6 sm:p-7 relative overflow-hidden cursor-pointer group select-none rounded-[inherit] shadow-2xl">
+                    <div className="w-full h-full bg-[#0e0e12] border border-white/15 flex flex-col justify-between p-5 sm:p-7 relative overflow-hidden cursor-pointer group select-none rounded-[inherit] shadow-2xl">
                       {/* Top Section */}
                       <div>
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 bg-white text-black font-bold">
+                          <span className="text-[10px] font-mono uppercase tracking-widest px-2.5 py-1 bg-white text-black font-bold rounded-sm">
                             {evt.category}
                           </span>
                           {evt.collab && (
@@ -115,7 +115,7 @@ export default function Events() {
                         </div>
 
                         {/* Title & Tagline */}
-                        <h3 className="text-2xl font-bold text-white tracking-tight mb-1">
+                        <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mb-1">
                           {evt.title}
                         </h3>
                         <div className="text-xs font-mono text-zinc-400 font-semibold tracking-wider mb-4">
@@ -123,15 +123,15 @@ export default function Events() {
                         </div>
 
                         {evt.perk && (
-                          <div className="p-2 bg-zinc-800 border border-white/10 text-[11px] font-mono text-zinc-300 flex items-center gap-1.5 mb-3">
+                          <div className="p-2 bg-zinc-800 border border-white/10 text-[11px] font-mono text-zinc-300 flex items-center gap-1.5 mb-3 rounded-sm">
                             <span className="text-white font-bold">&bull;</span>
-                            <span>{evt.perk}</span>
+                            <span className="truncate">{evt.perk}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Metadata: Date, Time, Venue */}
-                      <div className="py-3 px-4 bg-zinc-950 border border-white/10 font-mono text-xs text-zinc-400 space-y-2 my-auto">
+                      <div className="py-2.5 px-3.5 sm:py-3 sm:px-4 bg-zinc-950 border border-white/10 font-mono text-xs text-zinc-400 space-y-2 my-auto rounded-sm">
                         <div className="flex items-center justify-between">
                           <span className="flex items-center gap-1.5 text-zinc-500">
                             <Calendar className="w-3.5 h-3.5 text-white" /> Date
@@ -177,7 +177,7 @@ export default function Events() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start sm:justify-center p-3 sm:p-6 md:p-8 lg:p-12 overflow-y-auto"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col items-center justify-start p-3 sm:p-6 md:p-8 lg:p-12 overflow-y-auto"
             onClick={(e) => {
               if (e.target === e.currentTarget) setActiveEvent(null);
             }}
@@ -188,13 +188,13 @@ export default function Events() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 relative my-auto py-8 sm:py-4 px-1 sm:px-4"
+              className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 relative my-auto pt-14 pb-8 sm:py-4 px-1 sm:px-4"
             >
-              {/* Close Button */}
+              {/* Close Button - Stays fixed and accessible on mobile */}
               <button
                 type="button"
                 onClick={() => setActiveEvent(null)}
-                className="fixed top-3 right-3 sm:absolute sm:-top-7 sm:right-0 p-2 bg-white text-black hover:bg-zinc-200 transition-colors z-50 flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-lg"
+                className="fixed top-3 right-3 sm:absolute sm:-top-8 sm:right-0 px-3 py-1.5 bg-white text-black hover:bg-zinc-200 transition-colors z-50 flex items-center gap-1.5 text-xs font-mono font-bold uppercase tracking-wider shadow-2xl rounded-sm"
                 aria-label="Close event briefing"
               >
                 <span>Close</span>
@@ -206,10 +206,10 @@ export default function Events() {
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
-                className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text pt-4 sm:pt-4 lg:pt-0"
+                className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text pt-2 sm:pt-4 lg:pt-0 text-center sm:text-left items-center sm:items-start"
               >
                 <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                  <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 bg-white text-black font-bold">
+                  <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 bg-white text-black font-bold rounded-sm">
                     {activeEvent.category}
                   </span>
                   <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500 tracking-wider">
@@ -223,7 +223,7 @@ export default function Events() {
                 </h2>
 
                 {activeEvent.collab && (
-                  <div className="text-xs sm:text-sm font-mono text-zinc-300 font-semibold tracking-wider mb-2">
+                  <div className="text-xs sm:text-sm font-mono text-emerald-400 font-semibold tracking-wider mb-2">
                     {activeEvent.collab}
                   </div>
                 )}
@@ -233,18 +233,18 @@ export default function Events() {
                 </p>
               </motion.div>
 
-              {/* RIGHT SIDE: The Card (WITH THE SAME FLIPCARD 3D TILT, GLARE, HOVERSCALE EFFECT) */}
+              {/* RIGHT SIDE: The Card (Clean, spacious, fully fitted for mobile) */}
               <motion.div
                 initial={{ opacity: 0, x: 16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="flex-shrink-0 w-full sm:w-auto flex justify-center items-center select-text"
               >
-                <div className="w-full max-w-[480px] sm:w-[460px] lg:w-[480px] h-[430px]">
+                <div className="w-full max-w-[480px] sm:w-[460px] lg:w-[480px] min-h-[470px] sm:h-[450px]">
                   <FlipCard
                     className="w-full h-full"
                     width="100%"
-                    height={430}
+                    height={470}
                     radius={16}
                     tilt={false}
                     tiltMax={10}
@@ -263,7 +263,7 @@ export default function Events() {
                       <div className="w-full h-full p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
 
                         {/* Card Header */}
-                        <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
+                        <div className="flex items-center justify-between pb-2 border-b border-white/10 mb-2.5 sm:mb-3">
                           <span className="text-[11px] font-mono text-zinc-400 font-medium">
                             {activeEvent.isStargazing ? 'Astronomy Briefing' : 'Official Event Specification'}
                           </span>
@@ -272,8 +272,8 @@ export default function Events() {
                           </span>
                         </div>
 
-                        {/* Metadata Grid (Venue, Date, Time) - Clean Font Only */}
-                        <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3">
+                        {/* Metadata Grid (Venue, Date, Time) */}
+                        <div className="grid grid-cols-3 gap-1.5 sm:gap-2 font-mono text-xs mb-2.5 sm:mb-3">
                           <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
                             <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
                               <MapPin className="w-3 h-3 text-white" />
@@ -306,30 +306,30 @@ export default function Events() {
                         </div>
 
                         {/* Description in Clean Typography */}
-                        <p className="text-xs text-zinc-300 leading-relaxed mb-3">
+                        <p className="text-xs text-zinc-300 leading-relaxed mb-2.5 sm:mb-3">
                           {activeEvent.shortDesc}
                         </p>
 
                         {/* Perks / Highlights */}
                         {activeEvent.perk && (
-                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3 rounded-sm">
-                            <span className="text-white font-bold">&bull;</span>
+                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-2.5 sm:mb-3 rounded-sm">
+                            <span className="text-emerald-400 font-bold">&bull;</span>
                             <span className="truncate">{activeEvent.perk}</span>
                           </div>
                         )}
 
                         {/* Student Coordinators */}
                         {activeEvent.contacts && activeEvent.contacts.length > 0 && (
-                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 font-mono text-xs mb-3 rounded-sm">
+                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 font-mono text-xs mb-2.5 sm:mb-3 rounded-sm">
                             <div className="text-[10px] text-zinc-500 uppercase mb-1">
                               Student Coordinators
                             </div>
-                            <div className="flex flex-wrap gap-x-6 gap-y-1">
+                            <div className="flex flex-wrap gap-x-5 gap-y-1">
                               {activeEvent.contacts.map((c, i) => (
                                 <a
                                   key={i}
                                   href={`tel:${c.phone.replace(/\s+/g, '')}`}
-                                  className="text-zinc-300 hover:text-white flex items-center gap-1.5"
+                                  className="text-zinc-300 hover:text-white flex items-center gap-1.5 py-0.5"
                                 >
                                   <Phone className="w-3 h-3 text-zinc-500" />
                                   <span>{c.name}: <strong className="text-white">{c.phone}</strong></span>
@@ -340,19 +340,19 @@ export default function Events() {
                         )}
 
                         {/* Action Buttons */}
-                        <div className="pt-3 border-t border-white/10 flex items-center gap-3">
+                        <div className="pt-2.5 border-t border-white/10 flex items-center gap-3">
                           {activeEvent.formUrl ? (
                             <a
                               href={activeEvent.formUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="w-full py-2.5 px-6 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                              className="w-full py-2.5 px-4 sm:px-6 bg-white text-black font-semibold text-xs sm:text-sm rounded-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
                             >
                               <span>{activeEvent.isStargazing ? 'Book Your Slot' : 'Register on Form'}</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                           ) : (
-                            <div className="w-full py-2.5 px-6 bg-white text-black font-semibold text-xs text-center shadow-lg rounded-sm">
+                            <div className="w-full py-2.5 px-4 sm:px-6 bg-white text-black font-semibold text-xs sm:text-sm text-center shadow-lg rounded-sm">
                               <span>Open to All &bull; {activeEvent.venue}</span>
                             </div>
                           )}

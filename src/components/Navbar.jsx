@@ -67,7 +67,7 @@ export default function Navbar({ visible = true }) {
         <div className="md:hidden flex items-center">
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-1 text-white focus:outline-none"
+            className="p-2 text-white focus:outline-none min-w-[42px] min-h-[42px] flex items-center justify-center rounded-sm active:bg-white/10"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -77,7 +77,7 @@ export default function Navbar({ visible = true }) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-[#09090b] border-b border-white/10 px-4 py-3 space-y-2 text-xs font-mono uppercase">
+        <div className="md:hidden bg-[#09090b]/95 backdrop-blur-md border-b border-white/10 px-4 py-3 space-y-1 text-xs font-mono uppercase">
           {navLinks.map((link) => (
             <a
               key={link.name}
@@ -86,7 +86,7 @@ export default function Navbar({ visible = true }) {
                 handleLinkClick(e, link.href);
                 setIsOpen(false);
               }}
-              className="block py-1.5 text-zinc-400 hover:text-white"
+              className="block py-2.5 px-3 text-zinc-300 hover:text-white hover:bg-white/5 active:bg-white/10 rounded-sm transition-colors"
             >
               {link.name}
             </a>
@@ -97,9 +97,10 @@ export default function Navbar({ visible = true }) {
               handleLinkClick(e, '#events');
               setIsOpen(false);
             }}
-            className="block py-1.5 font-bold text-white"
+            className="block py-2.5 px-3 font-bold text-white bg-white/10 hover:bg-white/20 active:bg-white/25 rounded-sm flex items-center justify-between"
           >
-            Register
+            <span>Register</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
           </a>
         </div>
       )}

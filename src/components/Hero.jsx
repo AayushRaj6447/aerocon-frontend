@@ -110,7 +110,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen bg-transparent text-white pt-24 pb-16 sm:pt-28 sm:pb-20 px-4 sm:px-6 lg:px-12 flex flex-col justify-between border-b border-white/10 overflow-hidden"
+      className="relative min-h-screen bg-transparent text-white pt-20 pb-12 sm:pt-28 sm:pb-20 px-3.5 sm:px-6 lg:px-12 flex flex-col justify-between border-b border-white/10 overflow-hidden"
     >
       {/* Background Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
@@ -133,25 +133,25 @@ export default function Hero({ isReady = true, onHeroComplete }) {
       </div>
 
       {/* ── TOP HEADER & COUNTDOWN ───────────────────────── */}
-      <div className="relative z-10 max-w-6xl w-full mx-auto mb-8 sm:mb-10">
+      <div className="relative z-10 max-w-6xl w-full mx-auto mb-6 sm:mb-10">
         
         {/* Sub-header Conclave Tag */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/10 mb-6">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-white/10 mb-4 sm:mb-6 text-[10px] sm:text-xs font-mono">
+          <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-white dot-pulse" />
-            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-zinc-400 font-semibold">
+            <span className="uppercase tracking-[0.15em] sm:tracking-[0.2em] text-zinc-400 font-semibold">
               AeroSoc BIT Mesra Presents
             </span>
           </div>
-          <div className="text-[11px] sm:text-xs font-mono text-zinc-500 uppercase tracking-widest">
+          <div className="text-zinc-500 uppercase tracking-wider">
             3 Days &bull; 8 Sessions &bull; 25–27 Sep 2026
           </div>
         </div>
 
         {/* Hero Title & Countdown Row */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 sm:gap-6">
           <div>
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.95]">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.95]">
               Event Timeline
             </h1>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl leading-relaxed">
@@ -159,36 +159,36 @@ export default function Hero({ isReady = true, onHeroComplete }) {
             </p>
           </div>
 
-          {/* Compact Countdown Clock */}
-          <div className="bg-zinc-950/80 border border-white/10 rounded-sm p-3 sm:p-4 backdrop-blur-sm flex-shrink-0 self-start lg:self-auto shadow-xl">
+          {/* Compact Countdown Clock (Full width on mobile, sleek dashboard style) */}
+          <div className="w-full lg:w-auto bg-zinc-950/80 border border-white/10 rounded-sm p-3 sm:p-4 backdrop-blur-sm shadow-xl mt-1 lg:mt-0">
             <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1.5">
-              <Clock className="w-3 h-3 text-white" />
-              <span>Countdown to Inaugural Drone Show</span>
+              <Clock className="w-3 h-3 text-white shrink-0" />
+              <span className="truncate">Countdown to Inaugural Drone Show</span>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3 font-mono text-center">
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <div className="grid grid-cols-4 gap-1.5 sm:flex sm:items-center sm:gap-3 font-mono text-center">
+              <div className="p-1 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-sm">
+                <span className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.days}
                 </span>
                 <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Days</span>
               </div>
-              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <span className="text-zinc-600 font-light text-base sm:text-lg -mt-3 hidden sm:inline">:</span>
+              <div className="p-1 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-sm">
+                <span className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.hours}
                 </span>
                 <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Hours</span>
               </div>
-              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <span className="text-zinc-600 font-light text-base sm:text-lg -mt-3 hidden sm:inline">:</span>
+              <div className="p-1 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-sm">
+                <span className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.minutes}
                 </span>
                 <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Mins</span>
               </div>
-              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+              <span className="text-zinc-600 font-light text-base sm:text-lg -mt-3 hidden sm:inline">:</span>
+              <div className="p-1 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-sm">
+                <span className="text-lg sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.seconds}
                 </span>
                 <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Secs</span>
@@ -197,8 +197,8 @@ export default function Hero({ isReady = true, onHeroComplete }) {
           </div>
         </div>
 
-        {/* ── DAY FILTER BUTTONS (CLUTTER-FREE TABS) ────────── */}
-        <div className="flex items-center gap-2 sm:gap-3 mt-6 sm:mt-8 overflow-x-auto pb-1 scrollbar-none">
+        {/* ── DAY FILTER BUTTONS (EDGE-TO-EDGE SWIPE ON MOBILE) ────────── */}
+        <div className="flex items-center gap-2 mt-5 sm:mt-8 overflow-x-auto pb-2 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 scrollbar-none touch-pan-x">
           {[
             { id: 'all', label: 'All Days' },
             { id: 'day0', label: 'Day 00 · 25 Sep' },
@@ -208,10 +208,10 @@ export default function Hero({ isReady = true, onHeroComplete }) {
             <button
               key={tab.id}
               onClick={() => setActiveDay(tab.id)}
-              className={`px-3.5 sm:px-4 py-1.5 rounded-sm text-xs font-mono uppercase tracking-wider font-semibold transition-all whitespace-nowrap border ${
+              className={`px-3.5 sm:px-4 py-2 sm:py-1.5 rounded-sm text-xs font-mono uppercase tracking-wider font-semibold transition-all whitespace-nowrap border shrink-0 min-h-[38px] flex items-center justify-center ${
                 activeDay === tab.id
                   ? 'bg-white text-black border-white shadow-md'
-                  : 'bg-zinc-900/80 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+                  : 'bg-zinc-900/80 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white active:bg-zinc-800'
               }`}
             >
               {tab.label}
@@ -221,7 +221,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
       </div>
 
       {/* ── MAIN TIMELINE CONTAINER ──────────────────────── */}
-      <div className="relative z-10 max-w-6xl w-full mx-auto flex-1 flex flex-col gap-6">
+      <div className="relative z-10 max-w-6xl w-full mx-auto flex-1 flex flex-col gap-5 sm:gap-6">
 
         {/* ── DAY 00 FEATURED BANNER ──────────────────────── */}
         {(activeDay === 'all' || activeDay === 'day0') && (
@@ -230,22 +230,24 @@ export default function Hero({ isReady = true, onHeroComplete }) {
 
             <div className="p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 flex-1 min-w-0">
-                {/* Day Badge */}
+                {/* Day Badge & Date */}
                 <div className="flex items-center gap-2.5 flex-shrink-0">
                   <span className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-1 bg-white text-black rounded-sm">
                     Day 00
                   </span>
-                  <span className="text-[11px] font-mono text-zinc-400">25 Sep 2026</span>
+                  <span className="text-xs font-mono text-zinc-400">25 Sep 2026</span>
                 </div>
 
                 <div className="hidden sm:block w-px h-8 bg-white/15 flex-shrink-0" />
 
                 {/* Time & Venue */}
-                <div className="flex items-center gap-2 flex-shrink-0 font-mono text-xs">
-                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-zinc-300 rounded-sm">
+                <div className="flex items-center gap-2 flex-wrap font-mono text-xs">
+                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-zinc-300 rounded-sm flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-zinc-400" />
                     05:30 PM
                   </span>
-                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-white font-semibold rounded-sm">
+                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-white font-semibold rounded-sm flex items-center gap-1">
+                    <MapPin className="w-3 h-3 text-zinc-400" />
                     NCC Ground
                   </span>
                 </div>
@@ -254,32 +256,32 @@ export default function Hero({ isReady = true, onHeroComplete }) {
 
                 {/* Title & Desc */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+                  <div className="flex items-baseline gap-2 flex-wrap">
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white leading-none">
                       Drone Show
                     </h3>
                     <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
                       Lights &bull; Formations &bull; Sky Spectacle
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
-                    Inaugural aerial drone light show. Precision swarms, light choreography, and synchronized formations illuminating the evening sky.
+                  <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">
+                    Inaugural aerial drone light show. Precision swarms, light choreography, and synchronized formations illuminating the Ranchi evening sky.
                   </p>
                 </div>
               </div>
 
-              {/* Tag / Status */}
-              <div className="flex items-center gap-2 flex-shrink-0 self-start lg:self-center">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900/90 border border-white/20 text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-200 rounded-sm">
+              {/* Tag / Status / Actions */}
+              <div className="flex items-center justify-between sm:justify-start gap-2 pt-3 border-t border-white/10 lg:border-0 lg:pt-0 shrink-0">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-zinc-900/90 border border-white/20 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-200 rounded-sm">
                   <Zap className="w-3.5 h-3.5 text-yellow-400" />
                   Inauguration
                 </span>
                 <a
                   href="#events"
-                  className="px-3 py-1.5 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center gap-1"
+                  className="px-3.5 py-1.5 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center gap-1"
                 >
                   <span>Details</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
@@ -288,7 +290,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
 
         {/* ── DAY 01 & DAY 02 GRID ────────────────────────── */}
         <div
-          className={`grid gap-6 ${
+          className={`grid gap-5 sm:gap-6 ${
             activeDay === 'all'
               ? 'grid-cols-1 lg:grid-cols-2'
               : 'grid-cols-1'
@@ -305,7 +307,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
                   <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-white text-black">
                     Day 01
                   </span>
-                  <span className="text-xs font-mono text-zinc-300 font-semibold">Saturday, 26 Sep 2026</span>
+                  <span className="text-xs font-mono text-zinc-300 font-semibold">Saturday, 26 Sep</span>
                 </div>
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
                   4 Sessions
@@ -331,7 +333,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
                   <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-zinc-800 text-zinc-200 border border-zinc-600">
                     Day 02
                   </span>
-                  <span className="text-xs font-mono text-zinc-300 font-semibold">Sunday, 27 Sep 2026</span>
+                  <span className="text-xs font-mono text-zinc-300 font-semibold">Sunday, 27 Sep</span>
                 </div>
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
                   4 Sessions
@@ -352,11 +354,11 @@ export default function Hero({ isReady = true, onHeroComplete }) {
       </div>
 
       {/* ── BOTTOM BAR STRIP ─────────────────────────────── */}
-      <div className="relative z-10 max-w-6xl w-full mx-auto mt-10 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-500">
-        <div className="uppercase tracking-widest text-[10px] sm:text-[11px]">
+      <div className="relative z-10 max-w-6xl w-full mx-auto mt-8 sm:mt-10 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+        <div className="uppercase tracking-widest text-[10px] sm:text-[11px] text-center sm:text-left">
           AEROSOC &bull; BIT MESRA &bull; AEROCON 2026
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center">
           <a
             href="https://form.jotform.com/262655686665070"
             target="_blank"
@@ -366,7 +368,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
             <span>Book Stargazing Slot</span>
             <ArrowUpRight className="w-3 h-3 text-white" />
           </a>
-          <span className="text-zinc-700">&bull;</span>
+          <span className="text-zinc-700 hidden sm:inline">&bull;</span>
           <a
             href="#events"
             className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
@@ -385,8 +387,8 @@ function TimelineCard({ item }) {
     <div className="group relative bg-zinc-950/60 hover:bg-zinc-900/60 border border-white/10 hover:border-white/25 transition-all duration-300 rounded-sm p-3.5 sm:p-4 flex flex-col justify-between">
       {/* Top Metadata Row */}
       <div>
-        <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-          <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-1.5 mb-2 flex-wrap">
+          <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-[10px] font-mono text-zinc-300 bg-zinc-900 border border-white/10 px-2 py-0.5 rounded-sm">
               {item.time}
             </span>
@@ -401,7 +403,7 @@ function TimelineCard({ item }) {
               </span>
             )}
           </div>
-          <span className="text-[10px] font-mono font-semibold text-zinc-300 bg-zinc-900/80 border border-white/10 px-2 py-0.5 rounded-sm flex items-center gap-1">
+          <span className="text-[10px] font-mono font-semibold text-zinc-300 bg-zinc-900/80 border border-white/10 px-2 py-0.5 rounded-sm flex items-center gap-1 shrink-0">
             <MapPin className="w-2.5 h-2.5 text-zinc-400" />
             {item.venue}
           </span>
@@ -411,12 +413,12 @@ function TimelineCard({ item }) {
         <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white group-hover:text-zinc-100 transition-colors leading-tight">
           {item.title}
         </h4>
-        <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+        <p className="text-[10px] sm:text-[11px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
           {item.tagline}
         </p>
 
         {/* Description */}
-        <p className="text-xs text-zinc-400 leading-relaxed mt-1.5 line-clamp-2">
+        <p className="text-xs text-zinc-400 leading-relaxed mt-1.5">
           {item.desc}
         </p>
       </div>
@@ -424,18 +426,18 @@ function TimelineCard({ item }) {
       {/* Action CTA if Stargazing or Event Card */}
       <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between gap-2">
         {item.isStargazing ? (
-          <div className="flex items-center gap-3 w-full justify-between">
-            <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> Free Telescope Access
+          <div className="flex items-center justify-between w-full gap-2">
+            <span className="text-[10px] sm:text-xs font-mono text-emerald-400 flex items-center gap-1">
+              <Sparkles className="w-3 h-3 shrink-0" /> Free Admission
             </span>
             <a
               href={item.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 py-1 bg-white text-black font-mono font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-200 transition-colors rounded-sm flex items-center gap-1"
+              className="px-3 py-1.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 active:bg-zinc-300 transition-colors rounded-sm flex items-center gap-1 shadow-sm shrink-0"
             >
               <span>Book Slot</span>
-              <ArrowUpRight className="w-2.5 h-2.5" />
+              <ArrowUpRight className="w-3 h-3" />
             </a>
           </div>
         ) : (
@@ -443,10 +445,10 @@ function TimelineCard({ item }) {
             {item.anchor && (
               <a
                 href={`#${item.anchor}`}
-                className="text-[10px] font-mono text-zinc-500 hover:text-white transition-colors flex items-center gap-1"
+                className="text-xs font-mono text-zinc-400 hover:text-white transition-colors flex items-center gap-1 py-1"
               >
                 <span>View Details</span>
-                <ArrowRight className="w-2.5 h-2.5" />
+                <ArrowRight className="w-3 h-3" />
               </a>
             )}
           </div>
