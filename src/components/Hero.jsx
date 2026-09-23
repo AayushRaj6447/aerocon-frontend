@@ -88,14 +88,6 @@ export default function Hero({ isReady = true, onHeroComplete }) {
       anchor: 'aeroquiz',
     },
     {
-      time: '04:30 PM',
-      venue: 'MAIN HALL',
-      title: 'Valedictory & Prize Distribution',
-      tagline: 'Celebration & Awards',
-      desc: 'Announcement of winners, distribution of cash prizes, trophies, mementos, and the grand conclave closing ceremony.',
-      isValedictory: true,
-    },
-    {
       time: '07:00 PM - 08:00 PM',
       venue: 'LAWN CIRCLE',
       title: 'Stargazing · Session II',
@@ -144,7 +136,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
             </span>
           </div>
           <div className="text-zinc-500 uppercase tracking-wider">
-            3 Days &bull; 8 Sessions &bull; 25–27 Sep 2026
+            3 Days &bull; 7 Events &bull; 25–27 Sep 2026
           </div>
         </div>
 
@@ -155,7 +147,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
               Event Timeline
             </h1>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl leading-relaxed">
-              Complete schedule for national aerospace competitions, hands-on rocketry, autonomous drone swarms, and guided stargazing sessions.
+              Complete schedule for aerospace competitions, rocketry, drone swarms, and guided stargazing.
             </p>
           </div>
 
@@ -310,7 +302,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
                   <span className="text-xs font-mono text-zinc-300 font-semibold">Saturday, 26 Sep</span>
                 </div>
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                  4 Sessions
+                  4 Events
                 </span>
               </div>
 
@@ -336,7 +328,7 @@ export default function Hero({ isReady = true, onHeroComplete }) {
                   <span className="text-xs font-mono text-zinc-300 font-semibold">Sunday, 27 Sep</span>
                 </div>
                 <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                  4 Sessions
+                  3 Events
                 </span>
               </div>
 
@@ -395,11 +387,6 @@ function TimelineCard({ item }) {
             {item.collab && (
               <span className="text-[9px] font-mono text-emerald-400 font-semibold bg-emerald-950/40 border border-emerald-500/20 px-1.5 py-0.5 rounded-sm">
                 {item.collab}
-              </span>
-            )}
-            {item.isValedictory && (
-              <span className="text-[9px] font-mono text-amber-300 font-semibold bg-amber-950/40 border border-amber-500/20 px-1.5 py-0.5 rounded-sm">
-                Ceremony
               </span>
             )}
           </div>
