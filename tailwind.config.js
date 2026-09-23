@@ -25,6 +25,19 @@ export default {
         sans: ['Bebas Neue', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'Menlo', 'monospace'],
       },
+      /*
+       * Tailwind tracking scale — recalibrated for Bebas Neue.
+       * Default values were designed for normal proportional fonts.
+       * Bebas Neue is condensed all-caps and needs more air at every level.
+       */
+      letterSpacing: {
+        tighter:  '0.02em',   // large hero text only
+        tight:    '0.04em',   // large headings (h1/h2)
+        normal:   '0.06em',   // default body / h3
+        wide:     '0.09em',   // medium labels, h4-h6
+        wider:    '0.14em',   // small uppercase labels
+        widest:   '0.22em',   // tiny caps / monospaced badges
+      },
       animation: {
         'float-slow': 'float 7s ease-in-out infinite',
         'float-alt': 'floatAlt 10s ease-in-out infinite',

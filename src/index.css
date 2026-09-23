@@ -6,12 +6,54 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Bebas Neue', system-ui, -apple-system, sans-serif;
+    /* Bebas Neue base tracking — comfortable default for all sizes */
+    letter-spacing: 0.06em;
   }
 
   body {
     background-color: #09090b;
     color: #f4f4f5;
     overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /*
+   * HEADINGS — Bebas Neue
+   * Large display sizes: tighter (the letters are big enough)
+   * Smaller headings: more open so they don't merge
+   */
+  h1 { letter-spacing: 0.04em; line-height: 1.0; }
+  h2 { letter-spacing: 0.05em; line-height: 1.02; }
+  h3 { letter-spacing: 0.07em; line-height: 1.05; }
+  h4, h5, h6 { letter-spacing: 0.08em; line-height: 1.1; }
+
+  /*
+   * PARAGRAPHS — Bebas Neue at small sizes needs air
+   * Give body-copy paragraphs much more breathing room
+   */
+  p {
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+
+  /*
+   * MONO / CODE — JetBrains Mono
+   * Proportioned for its own metrics; significantly less than Bebas
+   */
+  .font-mono, code, pre {
+    font-family: 'JetBrains Mono', 'Menlo', monospace;
+    letter-spacing: 0.04em;
+    line-height: 1.55;
+  }
+
+  /* Inputs and buttons inherit site font */
+  button, input, select, textarea {
+    letter-spacing: inherit;
+  }
+
+  /* Uppercase labels (spans used as badges/tags) need generous spacing */
+  span.uppercase, label {
+    letter-spacing: 0.1em;
   }
 }
 
@@ -75,3 +117,47 @@
 }
 
 
+/* Hero Timeline entrance animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
+}
+
+@keyframes scanLine {
+  0% { transform: translateY(-100%); opacity: 0.6; }
+  100% { transform: translateY(200%); opacity: 0; }
+}
+
+.timeline-enter {
+  animation: fadeSlideUp 0.6s ease-out both;
+}
+
+.timeline-header-enter {
+  animation: fadeInLeft 0.5s ease-out both;
+}
+
+.dot-pulse {
+  animation: pulseDot 2.5s ease-in-out infinite;
+}
