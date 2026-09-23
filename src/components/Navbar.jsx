@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import whiteLogo from '../assets/aerocon-white.png';
 
-export default function Navbar({ visible = false }) {
+export default function Navbar({ visible = true }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
