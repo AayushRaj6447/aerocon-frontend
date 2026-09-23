@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ExternalLink, Calendar, Clock, MapPin, Phone, X, ArrowRight, Search } from 'lucide-react';
+import { ExternalLink, Calendar, Clock, MapPin, Phone, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { eventsData } from '../data/eventsData';
 import FlipCard from './FlipCard';
-import StargazingModal from './StargazingModal';
 
 // Component for scroll-triggered card entrance from below
 function ScrollRevealCard({ children, index }) {
@@ -49,23 +48,17 @@ function ScrollRevealCard({ children, index }) {
 
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState(null);
-  const [isStargazingModalOpen, setIsStargazingModalOpen] = useState(false);
-  const [stargazingMode, setStargazingMode] = useState('book');
 
   // Close modal on Escape key
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') {
-        if (isStargazingModalOpen) {
-          setIsStargazingModalOpen(false);
-        } else if (activeEvent) {
-          setActiveEvent(null);
-        }
+      if (e.key === 'Escape' && activeEvent) {
+        setActiveEvent(null);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeEvent, isStargazingModalOpen]);
+  }, [activeEvent]);
 
   return (
     <section id="events" className="py-24 bg-transparent border-b border-white/10 relative">
@@ -271,11 +264,11 @@ export default function Events() {
 
                         {/* Card Header */}
                         <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
-                          <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-zinc-400">
-                            {activeEvent.isStargazing ? 'ASTRONOMY BRIEFING' : 'OFFICIAL EVENT SPECIFICATION'}
+                          <span className="text-[11px] font-mono text-zinc-400 font-medium">
+                            {activeEvent.isStargazing ? 'Astronomy Briefing' : 'Official Event Specification'}
                           </span>
-                          <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500">
-                            AEROCON 2026
+                          <span className="text-[11px] font-mono text-zinc-500">
+                            Aerocon 2026
                           </span>
                         </div>
 
@@ -286,27 +279,27 @@ export default function Events() {
                               <MapPin className="w-3 h-3 text-white" />
                               <span>Venue</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {activeEvent.venue}
                             </div>
                           </div>
 
                           <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
-                              <Calendar className="w-3 h-3 text-white" />
+                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
+                              <Calendar className="w-3.5 h-3.5 text-white" />
                               <span>Date</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {activeEvent.date}
                             </div>
                           </div>
 
                           <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
-                              <Clock className="w-3 h-3 text-white" />
+                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
+                              <Clock className="w-3.5 h-3.5 text-white" />
                               <span>Time</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {activeEvent.time}
                             </div>
                           </div>
@@ -348,45 +341,18 @@ export default function Events() {
 
                         {/* Action Buttons */}
                         <div className="pt-3 border-t border-white/10 flex items-center gap-3">
-                          {activeEvent.isStargazing ? (
-                            <div className="w-full space-y-2">
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setStargazingMode('book');
-                                  setIsStargazingModalOpen(true);
-                                }}
-                                className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
-                              >
-                                <span>Book Your Slot</span>
-                                <ArrowRight className="w-4 h-4" />
-                              </button>
-                              <div className="text-center">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setStargazingMode('view');
-                                    setIsStargazingModalOpen(true);
-                                  }}
-                                  className="text-[11px] font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1.5 underline underline-offset-4"
-                                >
-                                  <Search className="w-3 h-3 text-zinc-400" />
-                                  <span>Already booked? View Your Slot</span>
-                                </button>
-                              </div>
-                            </div>
-                          ) : activeEvent.formUrl ? (
+                          {activeEvent.formUrl ? (
                             <a
                               href={activeEvent.formUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
+                              className="w-full py-2.5 px-6 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
                             >
-                              <span>Register on Form</span>
+                              <span>{activeEvent.isStargazing ? 'Book Your Slot' : 'Register on Form'}</span>
                               <ExternalLink className="w-3.5 h-3.5" />
                             </a>
                           ) : (
-                            <div className="w-full py-2.5 px-6 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider text-center shadow-lg">
+                            <div className="w-full py-2.5 px-6 bg-white text-black font-semibold text-xs text-center shadow-lg rounded-sm">
                               <span>Open to All &bull; {activeEvent.venue}</span>
                             </div>
                           )}
@@ -402,13 +368,6 @@ export default function Events() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Stargazing Slot Booking Modal */}
-      <StargazingModal
-        isOpen={isStargazingModalOpen}
-        onClose={() => setIsStargazingModalOpen(false)}
-        initialMode={stargazingMode}
-      />
     </section>
   );
 }
