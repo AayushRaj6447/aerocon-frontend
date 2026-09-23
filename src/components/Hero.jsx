@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Clock, MapPin, ArrowRight, Search } from 'lucide-react';
+import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
 import MainHero from './mainhero';
-import StargazingModal from './StargazingModal';
 import FlipCard from './FlipCard';
 import { RocketSketch, DroneSketch, JetSketch } from './FloatingSketches';
 import { stargazingData } from '../data/eventsData';
@@ -9,8 +8,6 @@ import { stargazingData } from '../data/eventsData';
 export default function Hero({ isReady = false, onHeroComplete }) {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState('book');
 
   // Countdown timer to 25 September 2026, 05:30 PM (Inaugural Drone Show)
   const calculateTimeLeft = () => {
@@ -172,33 +169,33 @@ export default function Hero({ isReady = false, onHeroComplete }) {
           >
             <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 py-6 sm:py-0">
 
-              {/* LEFT SIDE: Name written separately on the left side, static in bold sans-serif */}
+              {/* LEFT SIDE: Name written separately on the left side */}
               <div className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text">
                 <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                  <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase px-2.5 py-1 bg-white text-black font-bold">
-                    {stargazingData.category}
+                  <span className="text-[10px] sm:text-[11px] font-mono tracking-wider px-2.5 py-1 bg-white text-black font-semibold">
+                    Night Sky Observation
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500 tracking-wider">
-                    SPECIAL NIGHT EVENT
+                  <span className="text-[10px] sm:text-[11px] font-mono text-zinc-400 tracking-wider">
+                    Special Night Event
                   </span>
                 </div>
 
-                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.9] mb-2 sm:mb-3">
-                  {stargazingData.title}
+                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white leading-[0.95] mb-2 sm:mb-3">
+                  Stargazing
                 </h2>
 
-                <p className="text-xs sm:text-sm font-mono text-zinc-400 tracking-wide max-w-md">
-                  {stargazingData.tagline}
+                <p className="text-xs sm:text-sm text-zinc-400 tracking-wide max-w-md leading-relaxed">
+                  Peer deep into the cosmos through high-powered astronomical telescopes under guided constellation tours.
                 </p>
               </div>
 
-              {/* RIGHT SIDE: The Card (With 3D tilt, glare, hoverScale from FlipCard) */}
+              {/* RIGHT SIDE: The Card (Clean, uncluttered, normal casing) */}
               <div className="flex-shrink-0 w-full sm:w-auto flex justify-center items-center select-text">
-                <div className="w-full max-w-[480px] sm:w-[460px] lg:w-[480px] h-[395px]">
+                <div className="w-full max-w-[480px] sm:w-[460px] lg:w-[480px] min-h-[415px]">
                   <FlipCard
                     className="w-full h-full"
                     width="100%"
-                    height={395}
+                    height={415}
                     radius={16}
                     tilt={false}
                     tiltMax={10}
@@ -214,46 +211,46 @@ export default function Hero({ isReady = false, onHeroComplete }) {
                     flipOnClick={false}
                     draggable={false}
                     front={
-                      <div className="w-full h-full bg-[#0e0e12] p-4 sm:p-6 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
+                      <div className="w-full h-full bg-[#0e0e12] p-5 sm:p-7 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
 
                         {/* Card Header */}
-                        <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3">
-                          <span className="text-[10px] sm:text-[11px] font-mono tracking-widest uppercase text-zinc-400">
-                            TELESCOPE ARRAY SPECIFICATION
+                        <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3.5">
+                          <span className="text-[11px] font-mono text-zinc-400 font-medium">
+                            Telescope Array Specification
                           </span>
-                          <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500">
-                            AEROCON 2026
+                          <span className="text-[11px] font-mono text-zinc-500">
+                            Aerocon 2026
                           </span>
                         </div>
 
-                        {/* Metadata Grid (Venue, Date, Time) */}
-                        <div className="grid grid-cols-3 gap-2 font-mono text-xs mb-3">
-                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
+                        {/* Metadata Grid (Venue, Date, Time) - Normal Casing */}
+                        <div className="grid grid-cols-3 gap-2.5 font-mono text-xs mb-3.5">
+                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
                               <MapPin className="w-3 h-3 text-white" />
                               <span>Venue</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {stargazingData.venue}
                             </div>
                           </div>
 
-                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
+                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
                               <Calendar className="w-3.5 h-3.5 text-white" />
                               <span>Date</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {stargazingData.date}
                             </div>
                           </div>
 
-                          <div className="p-2 sm:p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-500 text-[10px] uppercase mb-0.5">
+                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
+                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
                               <Clock className="w-3 h-3 text-white" />
                               <span>Time</span>
                             </div>
-                            <div className="text-[11px] sm:text-sm font-bold text-white uppercase truncate">
+                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
                               {stargazingData.time}
                             </div>
                           </div>
@@ -261,48 +258,31 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
                         {/* Description in Clean Typography */}
                         <p className="text-xs text-zinc-300 leading-relaxed mb-3">
-                          {stargazingData.shortDesc}
+                          Guided night sky observation with high-powered astronomical telescopes. Observe lunar craters, Saturn's planetary rings, Jupiter's Galilean moons, and deep-sky star clusters.
                         </p>
 
                         {/* Perks */}
                         {stargazingData.perk && (
-                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3 rounded-sm">
-                            <span className="text-white font-bold">&bull;</span>
+                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3.5 rounded-sm">
+                            <span className="text-emerald-400 font-bold">&bull;</span>
                             <span className="truncate">{stargazingData.perk}</span>
                           </div>
                         )}
 
                         {/* CTA & Booking Button */}
-                        <div className="pt-3 border-t border-white/10 flex flex-col gap-2">
-                          <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5">
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setModalMode('book');
-                                setIsModalOpen(true);
-                              }}
-                              className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-sans font-bold text-xs uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
-                            >
-                              <span>Book Your Slot</span>
-                              <ArrowRight className="w-4 h-4" />
-                            </button>
-                            <span className="text-[10px] sm:text-[11px] font-mono text-zinc-500">
-                              Lawn Circle &bull; Free Admission
-                            </span>
-                          </div>
-
-                          {/* Just below Book Your Slot: View Your Slot */}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setModalMode('view');
-                              setIsModalOpen(true);
-                            }}
-                            className="text-left text-[11px] font-mono text-zinc-400 hover:text-white transition-colors inline-flex items-center gap-1.5 underline underline-offset-4"
+                        <div className="pt-3.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+                          <a
+                            href="https://form.jotform.com/262655686665070"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
                           >
-                            <Search className="w-3 h-3 text-zinc-400" />
-                            <span>Already booked? View / Download Your Slot Pass</span>
-                          </button>
+                            <span>Book Your Slot</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </a>
+                          <span className="text-[11px] font-mono text-zinc-400">
+                            Lawn Circle &bull; Free Admission
+                          </span>
                         </div>
 
                       </div>
@@ -316,13 +296,6 @@ export default function Hero({ isReady = false, onHeroComplete }) {
 
         </div>
       </section>
-
-      {/* Stargazing Slot Booking Modal */}
-      <StargazingModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        initialMode={modalMode}
-      />
     </>
   );
 }
