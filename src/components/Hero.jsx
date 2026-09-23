@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Clock, MapPin, ArrowRight } from 'lucide-react';
-import MainHero from './mainhero';
-import FlipCard from './FlipCard';
-import { RocketSketch, DroneSketch, JetSketch } from './FloatingSketches';
-import { stargazingData } from '../data/eventsData';
+import React, { useState, useEffect } from 'react';
+import { Calendar, Clock, MapPin, ArrowRight, ArrowUpRight, Zap, Sparkles } from 'lucide-react';
+import { JetSketch, RocketSketch, DroneSketch } from './FloatingSketches';
 
-export default function Hero({ isReady = false, onHeroComplete }) {
-  const containerRef = useRef(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
+export default function Hero({ isReady = true, onHeroComplete }) {
+  const [activeDay, setActiveDay] = useState('all');
 
   // Countdown timer to 25 September 2026, 05:30 PM (Inaugural Drone Show)
   const calculateTimeLeft = () => {
@@ -36,266 +32,426 @@ export default function Hero({ isReady = false, onHeroComplete }) {
     return () => clearInterval(timer);
   }, []);
 
-  // Track vertical scroll progress to transition horizontally (only AEROCON -> STARGAZING)
-  useEffect(() => {
-    let ticking = false;
+  const day1Events = [
+    {
+      time: '10:00 AM',
+      venue: 'ROOM 220',
+      title: 'Simulation Zero',
+      collab: 'Aerocon x MATLAB',
+      tagline: 'Code. Simulate. Fly.',
+      desc: 'Flight simulation and dynamic control challenge. Optimize flight algorithms in MATLAB & Simulink with exciting rewards.',
+      anchor: 'simulation-zero',
+    },
+    {
+      time: '01:00 PM',
+      venue: 'ROOM 217',
+      title: 'Aerobid Wars',
+      tagline: 'Bid. Build. Dominate.',
+      desc: 'High-stakes aerospace component bidding war. Form your squad, bid strategically, assemble your craft, and battle.',
+      anchor: 'aerobid-wars',
+    },
+    {
+      time: '03:00 PM',
+      venue: 'ROOM 219',
+      title: 'Sky Breach',
+      tagline: 'Design. Assemble. Launch.',
+      desc: 'Rocketry design, payload integration, and high-altitude launch mission. Build your launch vehicle and pierce the sky.',
+      anchor: 'sky-breach',
+    },
+    {
+      time: '07:00 PM - 08:00 PM',
+      venue: 'LAWN CIRCLE',
+      title: 'Stargazing · Session I',
+      tagline: 'Telescope Array Observation',
+      desc: 'Guided night sky observation with high-powered astronomical telescopes. Observe lunar craters, Saturn, and star clusters.',
+      isStargazing: true,
+      bookingUrl: 'https://form.jotform.com/262655686665070',
+      anchor: 'stargazing',
+    },
+  ];
 
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const rect = containerRef.current.getBoundingClientRect();
-          const total = rect.height - window.innerHeight;
-          if (total > 0) {
-            const current = -rect.top;
-            const progress = Math.min(Math.max(current / total, 0), 1);
-            setScrollProgress(progress);
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const day2Events = [
+    {
+      time: '10:00 AM',
+      venue: 'ROOM 220',
+      title: 'Twist and Fly',
+      tagline: 'Wind. Release. Glide.',
+      desc: 'Precision aeromodelling rubber-powered glider endurance contest. Maximize airtime glide with aerodynamic tuning.',
+      anchor: 'twist-and-fly',
+    },
+    {
+      time: '01:00 PM',
+      venue: 'ROOM 217',
+      title: 'AeroQuiz',
+      tagline: 'Think. Compete. Conquer.',
+      desc: 'Rapid-fire trivia and buzzer rounds on aircraft, space missions, rocketry milestones, and defense tech.',
+      anchor: 'aeroquiz',
+    },
+    {
+      time: '04:30 PM',
+      venue: 'MAIN HALL',
+      title: 'Valedictory & Prize Distribution',
+      tagline: 'Celebration & Awards',
+      desc: 'Announcement of winners, distribution of cash prizes, trophies, mementos, and the grand conclave closing ceremony.',
+      isValedictory: true,
+    },
+    {
+      time: '07:00 PM - 08:00 PM',
+      venue: 'LAWN CIRCLE',
+      title: 'Stargazing · Session II',
+      tagline: 'Deep Sky Constellation Tour',
+      desc: 'Final night telescope observation session. High-magnification planetary observation and astrophotography mounts provided.',
+      isStargazing: true,
+      bookingUrl: 'https://form.jotform.com/262655686665070',
+      anchor: 'stargazing',
+    },
+  ];
 
   return (
-    <>
-      <section
-        ref={containerRef}
-        className="relative h-[220vh] bg-transparent text-white select-none border-b border-white/10"
-      >
-        {/* Sticky 100vh Viewport */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden bg-transparent bg-grid-pattern flex items-center justify-center">
+    <section
+      id="hero"
+      className="relative min-h-screen bg-transparent text-white pt-24 pb-16 sm:pt-28 sm:pb-20 px-4 sm:px-6 lg:px-12 flex flex-col justify-between border-b border-white/10 overflow-hidden"
+    >
+      {/* Background Subtle Grid Pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none" />
 
-          {/* ==================== SLIDE 1: AEROCON + COUNTDOWN ==================== */}
-          <div
-            className="absolute inset-0 w-full h-full flex flex-col justify-between items-center pt-14 pb-8 sm:pb-12 will-change-transform"
-            style={{
-              transform: `translateX(-${scrollProgress * 105}vw)`,
-              opacity: Math.max(0, 1 - scrollProgress * 2),
-              pointerEvents: scrollProgress > 0.6 ? 'none' : 'auto'
-            }}
-          >
-            {/* Full-screen Particle Canvas for AEROCON */}
-            <div className="absolute inset-0 w-full h-full pointer-events-auto">
-              <MainHero onComplete={onHeroComplete} />
+      {/* Ambient Floating Sketches Framing the Edges */}
+      <div className="absolute top-[12%] left-[4%] sm:left-[6%] opacity-[0.16] text-white pointer-events-none -rotate-[20deg] hidden md:block">
+        <div style={{ animation: 'floatSway 14s ease-in-out infinite' }}>
+          <JetSketch className="w-12 h-12 lg:w-14 lg:h-14" />
+        </div>
+      </div>
+      <div className="absolute top-[14%] right-[4%] sm:right-[6%] opacity-[0.16] text-white pointer-events-none rotate-[20deg] hidden md:block">
+        <div style={{ animation: 'floatDeep 14s ease-in-out infinite', animationDelay: '-4s' }}>
+          <RocketSketch className="w-12 h-12 lg:w-14 lg:h-14" />
+        </div>
+      </div>
+      <div className="absolute bottom-[8%] right-[5%] opacity-[0.14] text-white pointer-events-none rotate-[10deg] hidden lg:block">
+        <div style={{ animation: 'floatSway 16s ease-in-out infinite', animationDelay: '-7s' }}>
+          <DroneSketch className="w-14 h-14" />
+        </div>
+      </div>
+
+      {/* ── TOP HEADER & COUNTDOWN ───────────────────────── */}
+      <div className="relative z-10 max-w-6xl w-full mx-auto mb-8 sm:mb-10">
+        
+        {/* Sub-header Conclave Tag */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/10 mb-6">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-white dot-pulse" />
+            <span className="text-[11px] sm:text-xs font-mono uppercase tracking-[0.2em] text-zinc-400 font-semibold">
+              AeroSoc BIT Mesra Presents
+            </span>
+          </div>
+          <div className="text-[11px] sm:text-xs font-mono text-zinc-500 uppercase tracking-widest">
+            3 Days &bull; 8 Sessions &bull; 25–27 Sep 2026
+          </div>
+        </div>
+
+        {/* Hero Title & Countdown Row */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+          <div>
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-sans font-black tracking-tight text-white uppercase leading-[0.95]">
+              Event Timeline
+            </h1>
+            <p className="text-xs sm:text-sm text-zinc-400 mt-2 max-w-xl leading-relaxed">
+              Complete schedule for national aerospace competitions, hands-on rocketry, autonomous drone swarms, and guided stargazing sessions.
+            </p>
+          </div>
+
+          {/* Compact Countdown Clock */}
+          <div className="bg-zinc-950/80 border border-white/10 rounded-sm p-3 sm:p-4 backdrop-blur-sm flex-shrink-0 self-start lg:self-auto shadow-xl">
+            <div className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-1.5">
+              <Clock className="w-3 h-3 text-white" />
+              <span>Countdown to Inaugural Drone Show</span>
             </div>
-
-            {/* Ambient Hero Floating Sketches (Uniformly framing the main text) */}
-            {/* Top-Left Flank */}
-            <div className="absolute top-[20%] left-[8%] sm:left-[12%] opacity-[0.22] text-white pointer-events-none -rotate-[25deg]">
-              <div style={{ animation: 'floatSway 12s ease-in-out infinite', animationDelay: '-2s' }}>
-                <JetSketch className="w-10 h-10 sm:w-12 sm:h-12" />
-              </div>
-            </div>
-
-            {/* Top-Right Flank */}
-            <div className="absolute top-[20%] right-[8%] sm:right-[12%] opacity-[0.22] text-white pointer-events-none rotate-[25deg]">
-              <div style={{ animation: 'floatDeep 12s ease-in-out infinite', animationDelay: '-6s' }}>
-                <RocketSketch className="w-10 h-10 sm:w-12 sm:h-12" />
-              </div>
-            </div>
-
-            {/* Bottom-Center (Above Countdown) */}
-            <div className="absolute bottom-[23%] left-1/2 -translate-x-1/2 opacity-[0.20] text-white pointer-events-none">
-              <div style={{ animation: 'floatDriftZone 14s ease-in-out infinite', animationDelay: '-4s' }}>
-                <DroneSketch className="w-10 h-10 sm:w-12 sm:h-12" />
-              </div>
-            </div>
-
-            {/* Spacers */}
-            <div className="h-2 relative z-10 pointer-events-none"></div>
-            <div className="pointer-events-none"></div>
-
-            {/* Countdown Timer */}
-            <div
-              className={`relative z-10 flex items-center justify-center gap-3 sm:gap-8 md:gap-14 font-mono text-center px-4 transition-all duration-1000 ${
-                isReady
-                  ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-6 pointer-events-none'
-              }`}
-            >
+            <div className="flex items-center gap-2 sm:gap-3 font-mono text-center">
               <div>
-                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.days}
                 </span>
-                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
-                  Days
-                </span>
+                <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Days</span>
               </div>
-              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
+              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
               <div>
-                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.hours}
                 </span>
-                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
-                  Hours
-                </span>
+                <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Hours</span>
               </div>
-              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
+              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
               <div>
-                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.minutes}
                 </span>
-                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
-                  Minutes
-                </span>
+                <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Mins</span>
               </div>
-              <span className="text-xl sm:text-3xl md:text-4xl text-zinc-700 font-light -mt-3 sm:-mt-4 select-none">:</span>
+              <span className="text-zinc-600 font-light text-lg -mt-3">:</span>
               <div>
-                <span className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight font-mono">
+                <span className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                   {timeLeft.seconds}
                 </span>
-                <span className="block text-[9px] sm:text-xs text-zinc-500 uppercase tracking-widest mt-1">
-                  Seconds
+                <span className="block text-[8px] sm:text-[9px] text-zinc-500 uppercase tracking-widest">Secs</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── DAY FILTER BUTTONS (CLUTTER-FREE TABS) ────────── */}
+        <div className="flex items-center gap-2 sm:gap-3 mt-6 sm:mt-8 overflow-x-auto pb-1 scrollbar-none">
+          {[
+            { id: 'all', label: 'All Days' },
+            { id: 'day0', label: 'Day 00 · 25 Sep' },
+            { id: 'day1', label: 'Day 01 · 26 Sep' },
+            { id: 'day2', label: 'Day 02 · 27 Sep' },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveDay(tab.id)}
+              className={`px-3.5 sm:px-4 py-1.5 rounded-sm text-xs font-mono uppercase tracking-wider font-semibold transition-all whitespace-nowrap border ${
+                activeDay === tab.id
+                  ? 'bg-white text-black border-white shadow-md'
+                  : 'bg-zinc-900/80 text-zinc-400 border-white/10 hover:border-white/30 hover:text-white'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── MAIN TIMELINE CONTAINER ──────────────────────── */}
+      <div className="relative z-10 max-w-6xl w-full mx-auto flex-1 flex flex-col gap-6">
+
+        {/* ── DAY 00 FEATURED BANNER ──────────────────────── */}
+        {(activeDay === 'all' || activeDay === 'day0') && (
+          <div className="border border-white/20 bg-zinc-950/70 backdrop-blur-md relative overflow-hidden group hover:border-white/40 transition-all duration-300 rounded-sm">
+            <div className="absolute left-0 top-0 bottom-0 w-[4px] bg-white" />
+
+            <div className="p-4 sm:p-6 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5 flex-1 min-w-0">
+                {/* Day Badge */}
+                <div className="flex items-center gap-2.5 flex-shrink-0">
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-1 bg-white text-black rounded-sm">
+                    Day 00
+                  </span>
+                  <span className="text-[11px] font-mono text-zinc-400">25 Sep 2026</span>
+                </div>
+
+                <div className="hidden sm:block w-px h-8 bg-white/15 flex-shrink-0" />
+
+                {/* Time & Venue */}
+                <div className="flex items-center gap-2 flex-shrink-0 font-mono text-xs">
+                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-zinc-300 rounded-sm">
+                    05:30 PM
+                  </span>
+                  <span className="px-2 py-0.5 bg-zinc-900 border border-white/10 text-white font-semibold rounded-sm">
+                    NCC Ground
+                  </span>
+                </div>
+
+                <div className="hidden sm:block w-px h-8 bg-white/15 flex-shrink-0" />
+
+                {/* Title & Desc */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
+                      Drone Show
+                    </h3>
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+                      Lights &bull; Formations &bull; Sky Spectacle
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-400 mt-1 max-w-2xl leading-relaxed">
+                    Inaugural aerial drone light show. Precision swarms, light choreography, and synchronized formations illuminating the evening sky.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tag / Status */}
+              <div className="flex items-center gap-2 flex-shrink-0 self-start lg:self-center">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-zinc-900/90 border border-white/20 text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-200 rounded-sm">
+                  <Zap className="w-3.5 h-3.5 text-yellow-400" />
+                  Inauguration
+                </span>
+                <a
+                  href="#events"
+                  className="px-3 py-1.5 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center gap-1"
+                >
+                  <span>Details</span>
+                  <ArrowRight className="w-3 h-3" />
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── DAY 01 & DAY 02 GRID ────────────────────────── */}
+        <div
+          className={`grid gap-6 ${
+            activeDay === 'all'
+              ? 'grid-cols-1 lg:grid-cols-2'
+              : 'grid-cols-1'
+          }`}
+        >
+
+          {/* DAY 01 COLUMN */}
+          {(activeDay === 'all' || activeDay === 'day1') && (
+            <div className="flex flex-col gap-3">
+              {/* Day Header */}
+              <div className="flex items-center justify-between pb-2 border-b-2 border-white">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white dot-pulse" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-white text-black">
+                    Day 01
+                  </span>
+                  <span className="text-xs font-mono text-zinc-300 font-semibold">Saturday, 26 Sep 2026</span>
+                </div>
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+                  4 Sessions
                 </span>
               </div>
+
+              {/* Day 01 Event Cards */}
+              <div className="flex flex-col gap-2.5">
+                {day1Events.map((item, idx) => (
+                  <TimelineCard key={idx} item={item} />
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* ==================== SLIDE 2: STARGAZING ==================== */}
-          <div
-            className="absolute inset-0 w-full h-full flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12 overflow-y-auto will-change-transform"
-            style={{
-              transform: `translateX(${(1 - scrollProgress) * 105}vw)`,
-              opacity: Math.min(1, Math.max(0, (scrollProgress - 0.2) * 1.8)),
-              pointerEvents: scrollProgress < 0.4 ? 'none' : 'auto'
-            }}
-          >
-            <div className="max-w-6xl w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12 xl:gap-16 py-6 sm:py-0">
-
-              {/* LEFT SIDE: Name written separately on the left side */}
-              <div className="flex-1 max-w-lg lg:max-w-xl flex flex-col justify-center select-text">
-                <div className="flex items-center gap-2 mb-2 sm:mb-3">
-                  <span className="text-[10px] sm:text-[11px] font-mono tracking-wider px-2.5 py-1 bg-white text-black font-semibold">
-                    Night Sky Observation
+          {/* DAY 02 COLUMN */}
+          {(activeDay === 'all' || activeDay === 'day2') && (
+            <div className="flex flex-col gap-3">
+              {/* Day Header */}
+              <div className="flex items-center justify-between pb-2 border-b-2 border-zinc-500">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-zinc-400" />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider px-2 py-0.5 bg-zinc-800 text-zinc-200 border border-zinc-600">
+                    Day 02
                   </span>
-                  <span className="text-[10px] sm:text-[11px] font-mono text-zinc-400 tracking-wider">
-                    Special Night Event
-                  </span>
+                  <span className="text-xs font-mono text-zinc-300 font-semibold">Sunday, 27 Sep 2026</span>
                 </div>
-
-                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-sans font-black tracking-tight text-white leading-[0.95] mb-2 sm:mb-3">
-                  Stargazing
-                </h2>
-
-                <p className="text-xs sm:text-sm text-zinc-400 tracking-wide max-w-md leading-relaxed">
-                  Peer deep into the cosmos through high-powered astronomical telescopes under guided constellation tours.
-                </p>
+                <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+                  4 Sessions
+                </span>
               </div>
 
-              {/* RIGHT SIDE: The Card (Clean, uncluttered, normal casing) */}
-              <div className="flex-shrink-0 w-full sm:w-auto flex justify-center items-center select-text">
-                <div className="w-full max-w-[480px] sm:w-[460px] lg:w-[480px] min-h-[415px]">
-                  <FlipCard
-                    className="w-full h-full"
-                    width="100%"
-                    height={415}
-                    radius={16}
-                    tilt={false}
-                    tiltMax={10}
-                    glare={false}
-                    glareOpacity={0.25}
-                    hoverScale={1}
-                    perspective={1100}
-                    background="#0e0e12"
-                    color="#f5f5f5"
-                    shadow={true}
-                    shadowColor="#000000"
-                    shadowOpacity={0.45}
-                    flipOnClick={false}
-                    draggable={false}
-                    front={
-                      <div className="w-full h-full bg-[#0e0e12] p-5 sm:p-7 shadow-2xl relative flex flex-col justify-between rounded-[inherit]">
-
-                        {/* Card Header */}
-                        <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-3.5">
-                          <span className="text-[11px] font-mono text-zinc-400 font-medium">
-                            Telescope Array Specification
-                          </span>
-                          <span className="text-[11px] font-mono text-zinc-500">
-                            Aerocon 2026
-                          </span>
-                        </div>
-
-                        {/* Metadata Grid (Venue, Date, Time) - Normal Casing */}
-                        <div className="grid grid-cols-3 gap-2.5 font-mono text-xs mb-3.5">
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
-                              <MapPin className="w-3 h-3 text-white" />
-                              <span>Venue</span>
-                            </div>
-                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
-                              {stargazingData.venue}
-                            </div>
-                          </div>
-
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
-                              <Calendar className="w-3.5 h-3.5 text-white" />
-                              <span>Date</span>
-                            </div>
-                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
-                              {stargazingData.date}
-                            </div>
-                          </div>
-
-                          <div className="p-2.5 bg-zinc-950 border border-white/10 rounded-sm">
-                            <div className="flex items-center gap-1 text-zinc-400 text-[10px] mb-0.5">
-                              <Clock className="w-3 h-3 text-white" />
-                              <span>Time</span>
-                            </div>
-                            <div className="text-[11px] sm:text-xs font-semibold text-white truncate">
-                              {stargazingData.time}
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Description in Clean Typography */}
-                        <p className="text-xs text-zinc-300 leading-relaxed mb-3">
-                          Guided night sky observation with high-powered astronomical telescopes. Observe lunar craters, Saturn's planetary rings, Jupiter's Galilean moons, and deep-sky star clusters.
-                        </p>
-
-                        {/* Perks */}
-                        {stargazingData.perk && (
-                          <div className="p-2 bg-zinc-950 border border-white/10 text-xs font-mono text-zinc-300 flex items-center gap-2 mb-3.5 rounded-sm">
-                            <span className="text-emerald-400 font-bold">&bull;</span>
-                            <span className="truncate">{stargazingData.perk}</span>
-                          </div>
-                        )}
-
-                        {/* CTA & Booking Button */}
-                        <div className="pt-3.5 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
-                          <a
-                            href="https://form.jotform.com/262655686665070"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full sm:w-auto px-6 py-2.5 bg-white text-black font-semibold text-xs rounded-sm hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 shadow-lg"
-                          >
-                            <span>Book Your Slot</span>
-                            <ArrowRight className="w-4 h-4" />
-                          </a>
-                          <span className="text-[11px] font-mono text-zinc-400">
-                            Lawn Circle &bull; Free Admission
-                          </span>
-                        </div>
-
-                      </div>
-                    }
-                  />
-                </div>
+              {/* Day 02 Event Cards */}
+              <div className="flex flex-col gap-2.5">
+                {day2Events.map((item, idx) => (
+                  <TimelineCard key={idx} item={item} />
+                ))}
               </div>
-
             </div>
-          </div>
+          )}
 
         </div>
-      </section>
-    </>
+
+      </div>
+
+      {/* ── BOTTOM BAR STRIP ─────────────────────────────── */}
+      <div className="relative z-10 max-w-6xl w-full mx-auto mt-10 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono text-zinc-500">
+        <div className="uppercase tracking-widest text-[10px] sm:text-[11px]">
+          AEROSOC &bull; BIT MESRA &bull; AEROCON 2026
+        </div>
+        <div className="flex items-center gap-4">
+          <a
+            href="https://form.jotform.com/262655686665070"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white hover:underline flex items-center gap-1 font-semibold"
+          >
+            <span>Book Stargazing Slot</span>
+            <ArrowUpRight className="w-3 h-3 text-white" />
+          </a>
+          <span className="text-zinc-700">&bull;</span>
+          <a
+            href="#events"
+            className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+          >
+            <span>Explore All Event Cards</span>
+            <ArrowRight className="w-3 h-3" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TimelineCard({ item }) {
+  return (
+    <div className="group relative bg-zinc-950/60 hover:bg-zinc-900/60 border border-white/10 hover:border-white/25 transition-all duration-300 rounded-sm p-3.5 sm:p-4 flex flex-col justify-between">
+      {/* Top Metadata Row */}
+      <div>
+        <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] font-mono text-zinc-300 bg-zinc-900 border border-white/10 px-2 py-0.5 rounded-sm">
+              {item.time}
+            </span>
+            {item.collab && (
+              <span className="text-[9px] font-mono text-emerald-400 font-semibold bg-emerald-950/40 border border-emerald-500/20 px-1.5 py-0.5 rounded-sm">
+                {item.collab}
+              </span>
+            )}
+            {item.isValedictory && (
+              <span className="text-[9px] font-mono text-amber-300 font-semibold bg-amber-950/40 border border-amber-500/20 px-1.5 py-0.5 rounded-sm">
+                Ceremony
+              </span>
+            )}
+          </div>
+          <span className="text-[10px] font-mono font-semibold text-zinc-300 bg-zinc-900/80 border border-white/10 px-2 py-0.5 rounded-sm flex items-center gap-1">
+            <MapPin className="w-2.5 h-2.5 text-zinc-400" />
+            {item.venue}
+          </span>
+        </div>
+
+        {/* Title and Tagline */}
+        <h4 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white group-hover:text-zinc-100 transition-colors leading-tight">
+          {item.title}
+        </h4>
+        <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5">
+          {item.tagline}
+        </p>
+
+        {/* Description */}
+        <p className="text-xs text-zinc-400 leading-relaxed mt-1.5 line-clamp-2">
+          {item.desc}
+        </p>
+      </div>
+
+      {/* Action CTA if Stargazing or Event Card */}
+      <div className="mt-3 pt-2.5 border-t border-white/5 flex items-center justify-between gap-2">
+        {item.isStargazing ? (
+          <div className="flex items-center gap-3 w-full justify-between">
+            <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> Free Telescope Access
+            </span>
+            <a
+              href={item.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2.5 py-1 bg-white text-black font-mono font-bold text-[10px] uppercase tracking-wider hover:bg-zinc-200 transition-colors rounded-sm flex items-center gap-1"
+            >
+              <span>Book Slot</span>
+              <ArrowUpRight className="w-2.5 h-2.5" />
+            </a>
+          </div>
+        ) : (
+          <div className="flex items-center justify-end w-full">
+            {item.anchor && (
+              <a
+                href={`#${item.anchor}`}
+                className="text-[10px] font-mono text-zinc-500 hover:text-white transition-colors flex items-center gap-1"
+              >
+                <span>View Details</span>
+                <ArrowRight className="w-2.5 h-2.5" />
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
