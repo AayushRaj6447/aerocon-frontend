@@ -57,6 +57,13 @@ export const scheduleData = {
         tagline: 'THINK. COMPETE. CONQUER.',
         venue: 'ROOM 217',
         desc: 'Aviation and aerospace trivia, stage buzzer rounds, and quiz bowl.'
+      },
+      {
+        time: '04:30 P.M',
+        title: 'Valedictory & Prize Distribution',
+        tagline: 'CELEBRATION & AWARDS',
+        venue: 'MAIN HALL',
+        desc: 'Announcement of winners, distribution of prizes, trophies, and closing ceremony.'
       }
     ]
   }
