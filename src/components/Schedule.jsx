@@ -27,7 +27,7 @@ export default function Schedule() {
         </div>
 
         {/* Day Switcher */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
+        <div className="flex justify-center gap-2 sm:gap-3 mb-8 sm:mb-10">
           {days.map((day) => (
             <button
               key={day.key}

@@ -7,15 +7,15 @@ import skyImg from '../assets/tickets/sky-breach.jpg';
 export const droneShowData = {
   id: 'drone-show',
   title: 'DRONE SHOW',
-  category: 'Aerial Light Spectacle',
+  category: 'Aerial Swarm Demonstration',
   date: '25.09.2026',
-  time: '05:30 P.M',
-  venue: 'NCC GROUND',
-  shortDesc: 'A breathtaking synchronized aerial drone show. Watch autonomous multi-rotor perform high-precision aerodynamic maneuvers, and illuminating light over the evening sky.',
-  perk: 'Live Aerial Swarm Choreography • Open to All Students & Visitors',
+  time: '05:30 PM',
+  venue: 'NCC Ground',
+  shortDesc: 'Synchronized multi-rotor UAV formation flight. Features autonomous trajectory tracking, dynamic swarm positioning, and high-intensity nocturnal LED telemetry.',
+  perk: 'Precision Autonomous Flight Trajectories • Open Access',
   contacts: [
     { name: 'Aayush', phone: '91100 57864' },
-    {name: 'Abhishek', phone: '62021 74621'}
+    { name: 'Abhishek', phone: '62021 74621' }
   ]
 };
 
@@ -28,11 +28,11 @@ export const stargazingData = {
   venue: 'Lawn Circle',
   formUrl: 'https://form.jotform.com/262655686665070',
   isStargazing: true,
-  shortDesc: 'Peer deep into the cosmos through astronomical telescopes. Observe lunar craters, Saturn’s planetary rings, Jupiter’s Galilean moons, and distant star clusters under guided constellation tours.',
-  perk: 'Astronomical Telescopes & Astro-Photography Mounts Provided',
+  shortDesc: 'Deep-space optical observation session using high-power reflector telescopes. Includes guided tracking of lunar topography, Saturnian ring structures, and Jovian moons.',
+  perk: 'Astronomical Reflector Telescopes & Astrophotography Mounts',
   contacts: [
-    { name: 'A. Krishnan', phone: '62039 74739  ' },
-    {name: 'Shourya', phone: '83201 55541'}
+    { name: 'A. Krishnan', phone: '62039 74739' },
+    { name: 'Shourya', phone: '83201 55541' }
   ]
 };
 
@@ -43,30 +43,30 @@ export const eventsData = [
     id: 'simulation-zero',
     title: 'SIMULATION ZERO',
     collab: 'Aerocon x MATLAB',
-    category: 'Simulation & Code',
+    category: 'Flight Dynamics & Control',
     date: '26.09.2026',
-    time: '10:00 A.M',
-    venue: 'ROOM 220',
+    time: '10:00 AM',
+    venue: 'Room 220',
     formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSddlBpBv7SyR_PYDriYewciOut2eoV9HwsXyy6s2amju2bgaw/viewform',
-    perk: 'Free Pizzas and Goodies Loading...',
+    perk: 'MATLAB & Simulink Dynamics Control Track',
     ticketImage: simImg,
-    shortDesc: 'Code, simulate, and optimize aerospace flight dynamics and control algorithms in MATLAB & Simulink.',
+    shortDesc: 'Technical computational modeling competition. Participants design, simulate, and tune aerospace flight control algorithms and aerodynamic stability matrices.',
     contacts: [
       { name: 'Shourya', phone: '83201 55541' },
-      { name: 'Kartikeya', phone: '8789 058459' }
+      { name: 'Kartikeya', phone: '87890 58459' }
     ]
   },
   {
     id: 'aerobid-wars',
     title: 'AEROBID WARS',
-    category: 'Auction & Strategy',
+    category: 'Procurement & Strategy',
     date: '26.09.2026',
-    time: '01:00 P.M',
-    venue: 'ROOM 217',
+    time: '01:00 PM',
+    venue: 'Room 217',
     formUrl: 'https://forms.gle/VvFA3Xp3VmgirahW8',
-    perk: 'BID. BUILD. DOMINATE',
+    perk: 'Budget Allocation & Aircraft Assembly Challenge',
     ticketImage: aerobidImg,
-    shortDesc: 'High-stakes aerospace component bidding war. Form your squad, bid strategically, assemble your machine, and conquer the arena.',
+    shortDesc: 'Strategic aerospace component procurement auction. Teams manage financial capital to bid on structural parts, propulsion units, and assemble airworthy models.',
     contacts: [
       { name: 'Aayush', phone: '91100 57864' },
       { name: 'Utkarsh', phone: '77658 55180' }
@@ -75,14 +75,14 @@ export const eventsData = [
   {
     id: 'sky-breach',
     title: 'SKY BREACH',
-    category: 'Rocketry & Flight',
+    category: 'High-Power Rocketry',
     date: '26.09.2026',
-    time: '03:00 P.M',
-    venue: 'ROOM 219',
+    time: '03:00 PM',
+    venue: 'Room 219',
     formUrl: 'https://forms.gle/bXQJCzNJVZnS2QD39',
-    perk: 'Come, Learn and Build your own Rockets',
+    perk: 'Solid-Motor Aerodynamics & Recovery Systems',
     ticketImage: skyImg,
-    shortDesc: 'Rocketry design, payload integration, and high-altitude launch mission. Build your launch vehicle and breach the sky.',
+    shortDesc: 'Model rocketry engineering contest evaluating solid-motor impulse ratio, fins alignment, center of mass stability, payload integration, and parachute recovery.',
     contacts: [
       { name: 'A. Krishnan', phone: '62039 74739' },
       { name: 'Avnish', phone: '96088 86805' }
@@ -91,14 +91,14 @@ export const eventsData = [
   {
     id: 'twist-and-fly',
     title: 'TWIST AND FLY',
-    category: 'Aeromodelling',
+    category: 'Aeromodelling Endurance',
     date: '27.09.2026',
-    time: '10:00 A.M',
-    venue: 'ROOM 220',
+    time: '10:00 AM',
+    venue: 'Room 220',
     formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe-zLXQXX8FyrvhYennJW1L4Cv1MOf8s2bQ3VuQmBU6SuJXJw/viewform',
-    perk: 'WIND. RELEASE. GLIDE.',
+    perk: 'Passive Airfoil Lift & Glide Duration Scoring',
     ticketImage: twistImg,
-    shortDesc: 'Precision aeromodelling glider contest. Wind the rubber-band mechanism, release into flight, and maximize airtime glide.',
+    shortDesc: 'Precision rubber-band powered glider competition. Evaluates aerodynamic lift-to-drag optimization, structural mass minimization, and maximum flight duration.',
     contacts: [
       { name: 'Roushan', phone: '62032 08219' },
       { name: 'Pritam', phone: '62991 22506' }
@@ -107,14 +107,14 @@ export const eventsData = [
   {
     id: 'aeroquiz',
     title: 'AEROQUIZ',
-    category: 'Quiz & Intel',
+    category: 'Aviation & Space Systems',
     date: '27.09.2026',
-    time: '01:00 P.M',
-    venue: 'ROOM 217',
+    time: '01:00 PM',
+    venue: 'Room 217',
     formUrl: 'https://forms.gle/fmBjob2477KrkPL96',
-    perk: 'Think. Compete. Conquer.',
+    perk: 'Aeronautical Engineering & Space Exploration Intel',
     ticketImage: quizImg,
-    shortDesc: 'The ultimate aviation and aerospace quiz. Rapid-fire trivia on aircraft, space missions, rocketry milestones, and defense tech.',
+    shortDesc: 'Comprehensive technical examination covering classical aerodynamics, jet propulsion systems, orbital mechanics, historical space missions, and defense technology.',
     contacts: [
       { name: 'Raghav', phone: '82926 77570' },
       { name: 'Arijit', phone: '73190 54017' }
